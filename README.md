@@ -5,19 +5,19 @@
    <img src="Banner.jpg" alt="TPG: El bullicio del Callejon Aurum"><br>
 </p>
 
-## Nombre del grupo: **NOMBRE**
+## Nombre del grupo: **_Grafosaurios_**
 
-### Integrantes:
+##### Integrantes:
 
-#### APELLIDO, NOMBRE - PADRÓN
+##### - ARIAS, WALTER - 106428
 
-#### APELLIDO, NOMBRE - PADRÓN
+##### - SERRANTES, BRYAN - 110158
 
-#### APELLIDO, NOMBRE - PADRÓN
+##### - SICILIANO, FRANCO - 108157
 
-#### APELLIDO, NOMBRE - PADRÓN
+##### - WANG, RICARDO - 107235
 
-#### APELLIDO, NOMBRE - PADRÓN
+##### - ZAJIC, GISELA - 108735
 
 ### Documentos:
 
