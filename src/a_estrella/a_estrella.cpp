@@ -1,4 +1,5 @@
 #include "a_estrella.hpp"
+#include <algorithm>
 
 vertice* a_estrella::buscar_mejor_vertice() {
     vertice* mejor_vertice = nullptr;
