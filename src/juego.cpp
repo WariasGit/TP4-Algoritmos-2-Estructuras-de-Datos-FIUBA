@@ -1,20 +1,20 @@
 #include "juego.hpp"
 #include "utiles.hpp"
 
-void juego::jugar(bool &terminar_juego){
+void juego::jugar(){
     std::string opcion_elegida;
     int opcion;
     do
     {
         limpiar_pantalla();
         mostrar_menu_acciones_juego();
-        std::cin >> opcion_elegida << std::endl;
+        std::cin >> opcion_elegida;
         std::cout << std::endl;
-        opcion = utiles::validar_ingreso_opcion(opcion_elegida);
-        realizar_jugada(opcion, terminar_juego);
+        opcion = utiles::validar_ingreso_opcion(opcion_elegida, GENERAR_NUEVO_PEDIDO_ALEATORIO, SALIR);
+        realizar_jugada(opcion);
     }
-    while (opcion_elegida!=SALIR && !terminar_juego);
-    terminar_juego = true;
+    while (std::stoi(opcion_elegida)!=SALIR);
+    estado_del_juego = FINALIZADO;
 }
 
 
@@ -31,7 +31,7 @@ void juego::mostrar_menu_acciones_juego(){
 
 
 void juego::limpiar_pantalla(){
-    system(LIMPIAR)
+    system(LIMPIAR);
 }
 
 
@@ -40,10 +40,10 @@ void juego::mostrar_autores(){
 }
 
 void juego::continuar_juego(){
-    string continuar;
-    cout << "\nPresione una tecla para continuar..."<< endl;
-    cin.get();
-    cin.get();
+    std::string continuar;
+    std::cout << "\nPresione una tecla para continuar..."<< std::endl;
+    std::cin.get();
+    std::cin.get();
 }
 
 
@@ -61,8 +61,8 @@ juego::juego(){
     columnas_mapa = COLUMNAS;
     //arbol
     //heap
-    jugador = std::nullopt;
-    tablero = std::nullopt;
+    jugador = personaje();
+    tablero = mapa(filas_mapa, columnas_mapa);
     ingresar_menu_principal();
 }
 
@@ -73,13 +73,13 @@ void juego::ingresar_menu_principal(){
     while (opcion!=SALIR_MENU_PRINCIPAL && estado_del_juego == EN_CURSO)
     {
         mostrar_opciones_menu_principal();
-        std::cin>> valor_ingresado << std::endl;
+        std::cin>> valor_ingresado;
         std::cout << std::endl;
-        opcion = utiles::validar_ingreso_opcion(valor_ingresado);
+        opcion = utiles::validar_ingreso_opcion(valor_ingresado, INICIO, SALIR_MENU_PRINCIPAL);
         limpiar_pantalla();
         if (opcion==JUGAR)
         {
-            iniciar_juego();
+            jugar();
         }
         else if (opcion==CREDITOS)
         {
@@ -92,26 +92,7 @@ void juego::ingresar_menu_principal(){
     mensaje_de_salida();
 }
 
-
-
-void juego::iniciar_juego(){
-    //arbol
-    //heap
-    jugador.emplace();
-    tablero.emplace(filas_mapa, columnas_mapa);
-    bool terminar_juego = false;
-    if (terminar_juego)
-    {
-        estado_del_juego = FINALIZADO;
-    }
-    else
-    {
-        jugar(terminar_juego);
-    }
-}
-
-
-void juego::realizar_jugada(opcion, terminar_juego){
+void juego::realizar_jugada(int opcion){
     switch (opcion)
     {
     case GENERAR_NUEVO_PEDIDO_ALEATORIO:

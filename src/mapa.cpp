@@ -31,3 +31,13 @@ void mapa::cargar_callejon(std::string path_archivo){
 void mapa::agregar_casilleros_caminables(size_t fila, size_t columna){
     matriz_caminable.elemento(fila, columna) = true;
 }
+
+coordenada mapa::generar_coordenada_aleatoria_valida(){
+    size_t fila, columna;
+    do
+    {
+        fila = utiles::generar_numero_aleatorio(matriz_caminable.filas() - UN_INDICE);
+        columna = utiles::generar_numero_aleatorio(matriz_caminable.columnas() - UN_INDICE);
+    } while (!matriz_caminable.elemento(fila, columna));
+    return coordenada(static_cast<int>(fila), static_cast<int>(columna));
+}

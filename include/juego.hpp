@@ -50,14 +50,14 @@ size_t filas_mapa;
 size_t columnas_mapa;
 //Arbol de locales
 //heap de pedidos
-std::optional<personaje> jugador;
-std::optional<mapa> tablero;
+personaje jugador;
+mapa tablero;
 
 /*
 * Pre:
 * Post: Muesta las opciones de juego, valida las entradas y realiza las acciones correspondientes.
 */
-void jugar(bool terminar_juego);
+void jugar();
 
 /*
 * Pre:
@@ -97,7 +97,7 @@ void mensaje_de_salida();
 
 public:
     /*
-     * Constructor. No inicia el tablero ni el personaje.
+     * Constructor.
      */
     juego();
 
@@ -107,17 +107,12 @@ public:
      */
     void ingresar_menu_principal();
 
-    /*
-     * Pre:
-     * Post: Se inicia el juego, inicia el tablero, el personaje y las estructuras de datos.
-     */
-    void iniciar_juego();
 
     /*
      * Pre: La accion debe ser valida.
      * Post:
      */
-    void realizar_jugada(int accion, bool &terminar_juego);
+    void realizar_jugada(int accion);
 
     /*
      * Pre:
