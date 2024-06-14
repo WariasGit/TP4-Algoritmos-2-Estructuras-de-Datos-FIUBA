@@ -1,4 +1,4 @@
-#include "arista.hpp"
+#include "aem/arista.hpp"
 
 arista::arista(std::pair<size_t, size_t> vertices, int peso) {
     this->vertices = vertices;

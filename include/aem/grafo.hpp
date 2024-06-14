@@ -2,6 +2,7 @@
 #define AYED_TPG_1C2024_GRAFO_HPP
 
 #include <vector>
+#include <queue>
 #include "matriz.hpp"
 #include "arista.hpp"
 
@@ -13,6 +14,13 @@ const int INFINITO = 999;
 class grafo {
 private:
     matriz<int> matriz_adyacencia;
+
+    size_t buscar_arista_peso_maximo(const std::vector<bool>& vertices_visitados, 
+                                    const std::vector<int>& senderos_mas_transitados);
+
+    void actualizar(size_t vertice, std::vector<int>& senderos_mas_transitados, 
+                    std::vector<int>& vertices_mas_transitados, 
+                    const std::vector<bool>& vertice_visitado);
 public:
     // Constructores.
     grafo() = default;
