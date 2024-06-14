@@ -29,6 +29,17 @@ set(ARCHIVOS_FUENTE
         include/aem/grafo.hpp
         src/aem/arista.cpp
         include/aem/arista.hpp
+        include/juego.hpp
+        src/juego.cpp
+        include/local.hpp
+        src/local.cpp
+        include/personaje.hpp
+        src/personaje.cpp
+        include/pedido.hpp.hpp
+        src/pedido.cpp
+        include/utiles.hpp
+        src/utiles.cpp
+	include/constantes.hpp
 )
 
 add_executable(AyED_TPG_1c2024
