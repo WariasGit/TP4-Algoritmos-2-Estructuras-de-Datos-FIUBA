@@ -55,59 +55,63 @@ grafo& grafo::operator=(const grafo& grafo1) {
     return *this;
 }
 
-size_t grafo::buscar_arista_peso_maximo(const std::vector<bool>& vertices_visitados ,const std::vector<int>& senderos_mas_transitados) {
-    int peso_maximo_actual = -INFINITO;
+size_t grafo::buscar_vertice_maximo(const std::vector<bool>& vertices_visitados, 
+                                const std::vector<int>& pesos_maximos) {
+    int peso_maximo = INFINITO;
     size_t vertice_maximo = -1;
-    for (size_t i = 0; i < matriz_adyacencia.columnas(); i++) {
-        if (!vertices_visitados[i] && senderos_mas_transitados[i] > peso_maximo_actual) {
-            peso_maximo_actual = senderos_mas_transitados[i];
+    for (size_t i = 0; i < matriz_adyacencia.filas(); ++i) {
+        if (!vertices_visitados[i] && pesos_maximos[i] > peso_maximo) {
+            peso_maximo = pesos_maximos[i];
             vertice_maximo = i;
         }
     }
     return vertice_maximo;
 }
 
-void grafo::actualizar(size_t vertice, std::vector<int>& senderos_mas_transitados, 
-                    std::vector<int>& vertices_mas_transitados, 
-                    const std::vector<bool>& vertice_visitado) {
-    
-    for (size_t i = 0; i < matriz_adyacencia.columnas(); ++i) {
-        int peso_maximo = matriz_adyacencia.elemento(vertice, i);
-        if (!vertice_visitado[i] && peso_maximo > senderos_mas_transitados[i]) {
-            senderos_mas_transitados[i] = peso_maximo;
-            vertices_mas_transitados[i] = vertice;
+void grafo::actualizar_vertices(size_t vertice_maximo, const std::vector<bool>& vertices_visitados, 
+                                std::vector<int>& pesos_maximos, 
+                                std::vector<int>& vertices_maximo_asociado) {
+    for (size_t i = 0; i < matriz_adyacencia.filas(); ++i) {
+        int peso_actual = matriz_adyacencia.elemento(vertice_maximo, i);
+
+        if (!vertices_visitados[i] && peso_actual > pesos_maximos[i]) {
+            pesos_maximos[i] = peso_actual;
+            vertices_maximo_asociado[i] = vertice_maximo;
         }
     }
 }
+
+
 std::vector<arista> grafo::obtener_aem() {
-    //TODO: Implementar.
     std::vector<arista> aem_res;
 
-    matriz<int> matriz_1(matriz_adyacencia);
-    size_t cantidad_vertice = matriz_adyacencia.columnas();
+    int cantidad_vertice = matriz_adyacencia.filas();
+    int vertice_nulo = -1;
 
-    if (cantidad_vertice <= 1) return aem_res;
+    if (cantidad_vertice < 2) return aem_res;
 
-    std::vector<bool> vertices_visitados(cantidad_vertice,false);
-    std::vector<int> senderos_mas_transitados(cantidad_vertice,-INFINITO);
-    std::vector<int> vertices_mas_transitados(cantidad_vertice,-1);
+    std::vector<bool> vertices_visitados(cantidad_vertice, false);
+    std::vector<int> pesos_maximos(cantidad_vertice, INFINITO);
+    std::vector<int> vertices_maximo_asociado(cantidad_vertice, vertice_nulo);
 
-    for (size_t i = 0; i < cantidad_vertice - 1; i++) {
-        if (vertices_visitados[i] == false) {
-            size_t vertice_maximo = buscar_arista_peso_maximo(vertices_visitados,senderos_mas_transitados);
-            vertices_visitados[i] = true;
+    pesos_maximos[0] = 0;
+    vertices_maximo_asociado[0] = 0;
 
-            if (vertices_mas_transitados[i] != -1) {
-                aem_res.push_back(arista({vertice_maximo,i},senderos_mas_transitados[i]));
+    for (size_t i = 0; i < cantidad_vertice; ++i) {
+        size_t vertice_maximo = buscar_vertice_maximo(vertices_visitados, pesos_maximos);
+
+        if (vertice_maximo != vertice_nulo) {
+            vertices_visitados[vertice_maximo] = true;
+
+            if (vertices_maximo_asociado[vertice_maximo] != vertice_maximo) {
+                std::pair<int,int> par_de_vertice = {vertices_maximo_asociado[vertice_maximo], vertice_maximo};
+                int peso_arista = pesos_maximos[vertice_maximo];
+                aem_res.push_back(arista(par_de_vertice, peso_arista));
             }
 
-            actualizar(vertice_maximo,senderos_mas_transitados,vertices_mas_transitados,vertices_visitados);
+            actualizar_vertices(vertice_maximo,vertices_visitados, pesos_maximos, vertices_maximo_asociado);
         }
     }
 
-    for (size_t i = 1; i < matriz_1.filas(); i++) {
-        aem_res.emplace_back(std::make_pair(vertices_mas_transitados[i], i), 
-        matriz_adyacencia.elemento(vertices_mas_transitados[i], i));
-    }
     return aem_res;
 }

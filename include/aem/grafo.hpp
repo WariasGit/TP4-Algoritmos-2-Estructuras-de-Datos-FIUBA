@@ -8,19 +8,24 @@
 
 // Usen un valor suficientemente grande para no tener problemas.
 // También, pueden usar un valor negativo.
-const int INFINITO = 999;
+const int INFINITO = -999;
 
 // Este grafo va a calcular el arbol de expansión mínimo/máximo (MST).
 class grafo {
 private:
     matriz<int> matriz_adyacencia;
 
-    size_t buscar_arista_peso_maximo(const std::vector<bool>& vertices_visitados, 
-                                    const std::vector<int>& senderos_mas_transitados);
-
-    void actualizar(size_t vertice, std::vector<int>& senderos_mas_transitados, 
-                    std::vector<int>& vertices_mas_transitados, 
-                    const std::vector<bool>& vertice_visitado);
+    // Pre: -.
+    // Post: Devuelve el vertice adyacente con el mayor peso.
+    size_t buscar_vertice_maximo(const std::vector<bool>& vertices_visitados, 
+                            const std::vector<int>& pesos_maximos);
+    
+    // Pre: -.
+    // Post: Actualiza los vertices adyacentes y sus pesos.   
+    void actualizar_vertices(size_t vertice_maximo, const std::vector<bool>& vertices_visitados, 
+                            std::vector<int>& pesos_maximos, 
+                            std::vector<int>& vertices_maximo_asociado);
+    
 public:
     // Constructores.
     grafo() = default;
