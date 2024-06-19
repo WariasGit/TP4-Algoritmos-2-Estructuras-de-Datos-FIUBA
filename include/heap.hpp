@@ -134,7 +134,6 @@ void heap<T, comp>::upheap(size_t& indice) {
     size_t pos_padre = (indice-1)/2;
     while (indice > 0 && datos[pos_padre] < datos[indice]){
         swap(pos_padre, indice);
-        upheaps++;
         indice = pos_padre;
         pos_padre = (indice-1)/2;
     }
