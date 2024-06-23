@@ -2,7 +2,6 @@
 #define AYED_TPG_1C2024_GRAFO_HPP
 
 #include <vector>
-#include <queue>
 #include "matriz.hpp"
 #include "arista.hpp"
 
@@ -25,6 +24,10 @@ private:
     void actualizar_vertices(size_t vertice_maximo, const std::vector<bool>& vertices_visitados, 
                             std::vector<int>& pesos_maximos, 
                             std::vector<int>& vertices_maximo_asociado);
+
+    // Pre: -.
+    // Post: Imprime las aristas que forma el aem por la consola.
+    void imprimir_aristas(const std::vector<arista>& aem);
     
 public:
     // Constructores.

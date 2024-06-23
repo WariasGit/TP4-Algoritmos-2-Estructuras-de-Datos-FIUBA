@@ -81,6 +81,18 @@ void grafo::actualizar_vertices(size_t vertice_maximo, const std::vector<bool>& 
     }
 }
 
+void grafo::imprimir_aristas(const std::vector<arista>& aem) {
+    if (aem.size() < 2) {
+        std::cout<< "No hay arista. "<< std::endl;
+    } else {
+        for (size_t i = 0; i < aem.size(); i++) {
+        arista arista_1 = aem[i];
+        std::pair<int, int> coordenada = arista_1.obtener_vertices();
+        std::cout << "Peso: " << arista_1.obtener_peso() << ", Vertices: (" << coordenada.first << ", " << coordenada.second << ")" << std::endl;
+        }
+    }
+}
+
 
 std::vector<arista> grafo::obtener_aem() {
     std::vector<arista> aem_res;
@@ -88,8 +100,10 @@ std::vector<arista> grafo::obtener_aem() {
     int cantidad_vertice = matriz_adyacencia.filas();
     int vertice_nulo = -1;
 
-    if (cantidad_vertice < 2) return aem_res;
-
+    if (cantidad_vertice < 2) {
+        imprimir_aristas(aem_res);
+        return aem_res;
+    }
     std::vector<bool> vertices_visitados(cantidad_vertice, false);
     std::vector<int> pesos_maximos(cantidad_vertice, INFINITO);
     std::vector<int> vertices_maximo_asociado(cantidad_vertice, vertice_nulo);
@@ -112,6 +126,7 @@ std::vector<arista> grafo::obtener_aem() {
             actualizar_vertices(vertice_maximo,vertices_visitados, pesos_maximos, vertices_maximo_asociado);
         }
     }
+    imprimir_aristas(aem_res);
 
     return aem_res;
 }
