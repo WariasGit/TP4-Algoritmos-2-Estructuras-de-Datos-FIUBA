@@ -111,6 +111,7 @@ template<typename c, typename T, bool (* comp)(c, c)>
 void diccionario<c, T, comp>::baja(c clave) {
     nodo<c, T>* actual = raiz;
     nodo<c, T>* padre = nullptr;
+    
     while (actual && actual->clave != clave) {
         padre = actual;
         if (clave < actual->clave) {
@@ -119,10 +120,17 @@ void diccionario<c, T, comp>::baja(c clave) {
             actual = actual->hijo_derecho;
         }
     }
-    if (!actual) return; // No se encontró el nodo
 
+    if (!actual) return;
+    
     if (!actual->hijo_izquierdo || !actual->hijo_derecho) {
-        nodo<c, T>* nuevo_hijo = actual->hijo_izquierdo ? actual->hijo_izquierdo : actual->hijo_derecho;
+        nodo<c, T>* nuevo_hijo;
+        if (actual->hijo_izquierdo) {
+            nuevo_hijo = actual->hijo_izquierdo;
+        } else {
+            nuevo_hijo = actual->hijo_derecho;
+        }
+        
         if (!padre) {
             raiz = nuevo_hijo;
         } else if (actual == padre->hijo_izquierdo) {
@@ -130,25 +138,35 @@ void diccionario<c, T, comp>::baja(c clave) {
         } else {
             padre->hijo_derecho = nuevo_hijo;
         }
+
         if (nuevo_hijo) {
             nuevo_hijo->padre = padre;
         }
         delete actual;
-    } else {
+    }
+    
+    else {
         nodo<c, T>* minimo = actual->hijo_derecho;
+        nodo<c, T>* minimo_padre = actual;
+
         while (minimo->hijo_izquierdo) {
+            minimo_padre = minimo;
             minimo = minimo->hijo_izquierdo;
         }
+
         actual->clave = minimo->clave;
         actual->dato = minimo->dato;
-        if (minimo->padre->hijo_izquierdo == minimo) {
-            minimo->padre->hijo_izquierdo = minimo->hijo_derecho;
+
+        if (minimo_padre->hijo_izquierdo == minimo) {
+            minimo_padre->hijo_izquierdo = minimo->hijo_derecho;
         } else {
-            minimo->padre->hijo_derecho = minimo->hijo_derecho;
+            minimo_padre->hijo_derecho = minimo->hijo_derecho;
         }
+
         if (minimo->hijo_derecho) {
-            minimo->hijo_derecho->padre = minimo->padre;
+            minimo->hijo_derecho->padre = minimo_padre;
         }
+
         delete minimo;
     }
     cantidad_datos--;
