@@ -77,17 +77,81 @@ public:
 
 template<typename c, typename T, bool (* comp)(c, c)>
 diccionario<c, T, comp>::diccionario() {
-
+    raiz = nullptr;
+    cantidad_datos = 0;
 }
 
 template<typename c, typename T, bool (* comp)(c, c)>
 void diccionario<c, T, comp>::alta(c clave, T dato) {
-
+    nodo<c, T>* nuevo_nodo = new nodo<c, T>(clave, dato);
+    if (!raiz) {
+        raiz = nuevo_nodo;
+    } else {
+        nodo<c, T>* actual = raiz;
+        nodo<c, T>* padre = nullptr;
+        while (actual) {
+            padre = actual;
+            if (clave < actual->clave) {
+                actual = actual->hijo_izquierdo;
+            } else {
+                actual = actual->hijo_derecho;
+            }
+        }
+        nuevo_nodo->padre = padre;
+        if (clave < padre->clave) {
+            padre->hijo_izquierdo = nuevo_nodo;
+        } else {
+            padre->hijo_derecho = nuevo_nodo;
+        }
+    }
+    cantidad_datos++;
 }
 
 template<typename c, typename T, bool (* comp)(c, c)>
 void diccionario<c, T, comp>::baja(c clave) {
+    nodo<c, T>* actual = raiz;
+    nodo<c, T>* padre = nullptr;
+    while (actual && actual->clave != clave) {
+        padre = actual;
+        if (clave < actual->clave) {
+            actual = actual->hijo_izquierdo;
+        } else {
+            actual = actual->hijo_derecho;
+        }
+    }
+    if (!actual) return; // No se encontró el nodo
 
+    if (!actual->hijo_izquierdo || !actual->hijo_derecho) {
+        nodo<c, T>* nuevo_hijo = actual->hijo_izquierdo ? actual->hijo_izquierdo : actual->hijo_derecho;
+        if (!padre) {
+            raiz = nuevo_hijo;
+        } else if (actual == padre->hijo_izquierdo) {
+            padre->hijo_izquierdo = nuevo_hijo;
+        } else {
+            padre->hijo_derecho = nuevo_hijo;
+        }
+        if (nuevo_hijo) {
+            nuevo_hijo->padre = padre;
+        }
+        delete actual;
+    } else {
+        nodo<c, T>* minimo = actual->hijo_derecho;
+        while (minimo->hijo_izquierdo) {
+            minimo = minimo->hijo_izquierdo;
+        }
+        actual->clave = minimo->clave;
+        actual->dato = minimo->dato;
+        if (minimo->padre->hijo_izquierdo == minimo) {
+            minimo->padre->hijo_izquierdo = minimo->hijo_derecho;
+        } else {
+            minimo->padre->hijo_derecho = minimo->hijo_derecho;
+        }
+        if (minimo->hijo_derecho) {
+            minimo->hijo_derecho->padre = minimo->padre;
+        }
+        delete minimo;
+    }
+    cantidad_datos--;
 }
 
 template<typename c, typename T, bool (* comp)(c, c)>
@@ -122,12 +186,12 @@ void diccionario<c, T, comp>::ejecutar(void (* funcion)(T)) {
 
 template<typename c, typename T, bool (* comp)(c, c)>
 std::size_t diccionario<c, T, comp>::tamanio() {
-
+    return cantidad_datos;
 }
 
 template<typename c, typename T, bool (* comp)(c, c)>
 bool diccionario<c, T, comp>::vacio() {
-
+    return (cantidad_datos == 0);
 }
 
 template<typename c, typename T, bool (* comp)(c, c)>
