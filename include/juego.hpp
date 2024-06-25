@@ -2,10 +2,17 @@
 #define AYED_TPG_1C2024_JUEGO_HPP
 
 #include <iostream>
+#include <vector>
+#include <SFML/Graphics.hpp>
+#include <optional>
 #include "coordenada.hpp"
 #include "mapa.hpp"
-#include <optional>
 #include "personaje.hpp"
+#include "constantes.hpp"
+#include "pedido.hpp"
+#include "local.hpp"
+#include "a_estrella.hpp"
+
 
 #ifdef __linux__
 #define LIMPIAR "clear"
@@ -15,85 +22,50 @@
 #define LIMPIAR "CLS"
 #endif // __MINGW32__
 
-enum OPCIONES_MENU_PRINCIPAL{
-    INICIO = 0,
-    JUGAR = 1,
-    CREDITOS = 2,
-    SALIR_MENU_PRINCIPAL = 3,
-};
-
-enum CARACTERISTICAS_JUEGO {
-    LOCALES_MAXIMOS = 4,
-    FILAS = 18,
-    COLUMNAS = 24,
-};
-
-enum OPCIONES_MENU_JUEGO {
-    CONTINUAR = 0,
-    GENERAR_NUEVO_PEDIDO_ALEATORIO = 1,
-    ENTREGAR_PEDIDO = 2,
-    MOSTRAR_SENDEROS_CONEXIONES = 3,
-    SALIR = 4,
-};
-
-enum ESTADO_DEL_JUEGO {
-    EN_CURSO = 1,
-    FINALIZADO = -1
-};
-
-
 class juego {
 private:
-int estado_del_juego;
-size_t tope_locales;
-size_t filas_mapa;
-size_t columnas_mapa;
-//Arbol de locales
-//heap de pedidos
-personaje jugador;
-mapa tablero;
+    int estado_del_juego;
+    int vitalidad_del_callejon;
+    int pedidos_entregados;
+    size_t monedas;
+    std::vector<local> locales;
+    std::vector<pedido> pedidos;
+    a_estrella caminos_minimos;
+    std::stack<coordenada> camino_minimo_actual;
+    personaje jugador;
+    mapa tablero;
+    sf::RenderWindow window;
+    sf::Font font;
+    sf::Text menuText;
 
-/*
-* Pre:
-* Post: Muesta las opciones de juego, valida las entradas y realiza las acciones correspondientes.
-*/
-void jugar();
+    /*
+    * Pre:
+    * Post:
+    */
+    void mover_jugador(DIRECCION direccion);
 
-/*
-* Pre:
-* Post: Muestra las opciones del primer menu (principal).
-*/
-void mostrar_opciones_menu_principal();
+    /*
+    * Pre:
+    * Post:
+    */
+    void cargar_posicion_jugador_en_mapa();
 
-/*
-* Pre:
-* Post: Muestra el segundo menu, con las opciones de juego.
-*/
-void mostrar_menu_acciones_juego();
 
-/*
-* Pre:
-* Post: 
-*/
-void limpiar_pantalla();
+    /*
+    * Pre:
+    * Post: Imprime el juego por pantalla.
+    */
+    void mostrar_mapa();
 
-/*
-* Pre:
-* Post: Muesta a los participantes del desarrollo.
-*/
-void mostrar_autores();
+    /*
+    * Pre:
+    * Post: Muesta los senderos y conexiones de los locales.
+    */
+    void mostrar_arbol_expandido();
 
-/*
-* Pre:
-* Post:
-*/
-void continuar_juego();
+    void calcular_camino_minimo(coordenada inicio, coordenada destino);
+    void visualizar_camino_minimo(std::stack<coordenada>& camino);
 
-/*
-* Pre:
-* Post: Muestra un mensaje de despedida.
-*/
-void mensaje_de_salida();
 
 public:
     /*
@@ -101,35 +73,24 @@ public:
      */
     juego();
 
-    /*
-     * Pre:
-     * Post: Se ejecutan las funciones del menu.
-     */
-    void ingresar_menu_principal();
-
 
     /*
-     * Pre: La accion debe ser valida.
-     * Post:
-     */
-    void realizar_jugada(int accion);
+    * Pre:
+    * Post:
+    */
+    void actualizar_juego();
 
     /*
-     * Pre:
-     * Post: Imprime el juego por pantalla.
-     */
-    void mostrar_mapa();
+    * Pre:
+    * Post:
+    */
+    void manejar_eventos_ventana();
 
     /*
-     * Pre:
-     * Post: Muesta los senderos y conexiones de los locales.
-     */
-    void mostrar_arbol_expandido();
-
-    /*
-     * Destructor.
-     */
-    ~juego();
+    * Pre:
+    * Post: Muesta las opciones de juego, valida las entradas y realiza las acciones correspondientes.
+    */
+    void jugar();
 
 };
 
