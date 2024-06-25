@@ -178,7 +178,10 @@ void heap<T, comp>::alta(T dato) {
 template<typename T, bool (* comp)(T, T)>
 T heap<T, comp>::baja() {
     T eliminado;
-    if(!vacio()){
+    if(vacio()){
+        throw heap_exception();
+    }
+    else{
         eliminado = datos.front();
         size_t pos_eliminado = 0;
         size_t pos_ultimo = datos.size() - 1;
@@ -219,7 +222,10 @@ size_t heap<T, comp>::baja_complejidad() {
 template<typename T, bool (* comp)(T, T)>
 T heap<T, comp>::primero() {
     T primer_dato;
-    if (!vacio()){
+    if(vacio()){
+        throw heap_exception();
+    }
+    else{
         primer_dato = datos.front(); 
     }
     return primer_dato;
