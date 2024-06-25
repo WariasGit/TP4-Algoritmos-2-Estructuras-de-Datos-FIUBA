@@ -19,24 +19,20 @@ set(ARCHIVOS_FUENTE
         include/matriz.hpp
         src/a_estrella/vertice.cpp
         include/a_estrella/vertice.hpp
-        src/a_estrella/a_estrella.cpp
-        include/a_estrella/a_estrella.hpp
+
         src/a_estrella/coordenada.cpp
         include/a_estrella/coordenada.hpp
         src/mapa.cpp
         include/mapa.hpp
-        src/aem/grafo.cpp
-        include/aem/grafo.hpp
+
         src/aem/arista.cpp
         include/aem/arista.hpp
         include/juego.hpp
         src/juego.cpp
-        include/local.hpp
-        src/local.cpp
+
         include/personaje.hpp
         src/personaje.cpp
-        include/pedido.hpp.hpp
-        src/pedido.cpp
+
         include/utiles.hpp
         src/utiles.cpp
 	include/constantes.hpp
@@ -49,22 +45,12 @@ add_executable(AyED_TPG_1c2024
 
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "main")
 
-include(FetchContent)
-FetchContent_Declare(
-        googletest
-        GIT_REPOSITORY https://github.com/google/googletest.git
-        GIT_TAG e4fdb87e76b9fc4b01c54ad81aea19d6e994b994
-)
+# Encontrar y configurar SFML
+set(SFML_DIR "/usr/lib/x86_64-linux-gnu/cmake/SFML" CACHE PATH "Directorio donde se encuentran los módulos de SFML")
 
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-FetchContent_MakeAvailable(googletest)
+# Busca y configura SFML
+find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
 
-include_directories(${gmock_SOURCE_DIR}/include ${gmock_SOURCE_DIR})
+# Enlazar con las bibliotecas de SFML
+target_link_libraries(AyED_TPG_1c2024 sfml-graphics sfml-window sfml-system)
 
-add_subdirectory(tests/diccionario)
-add_subdirectory(tests/heap)
-add_subdirectory(tests/grafo)
-
-target_sources(diccionario_test PRIVATE ${ARCHIVOS_FUENTE})
-target_sources(heap_test PRIVATE ${ARCHIVOS_FUENTE})
-target_sources(grafo_test PRIVATE ${ARCHIVOS_FUENTE})

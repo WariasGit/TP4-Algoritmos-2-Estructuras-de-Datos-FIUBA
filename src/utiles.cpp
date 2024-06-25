@@ -57,3 +57,8 @@ size_t utiles::generar_numero_aleatorio(size_t maximo){
     return dis(gen);
 }
 
+NOMBRE_LOCALES utiles::obtener_nombre_aleatorio() {
+    size_t indice_aleatorio = utiles::generar_numero_aleatorio(static_cast<size_t>(CANTIDAD_NOMBRES));
+    return static_cast<NOMBRE_LOCALES>(indice_aleatorio);
+}
+
