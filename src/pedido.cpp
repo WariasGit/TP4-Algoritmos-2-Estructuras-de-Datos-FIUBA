@@ -1,5 +1,13 @@
 #include "pedido.hpp"
 
+pedido::pedido() {
+    local_inicio = coordenada();
+    local_destino = coordenada();
+    peso_paquete = CERO;
+    prioridad_pedido = peso_paquete;
+    entregado = true;
+}
+
 pedido::pedido(coordenada inicio, coordenada destino, size_t prioridad_del_local){
     local_inicio = inicio;
     local_destino = destino;
@@ -7,3 +15,5 @@ pedido::pedido(coordenada inicio, coordenada destino, size_t prioridad_del_local
     prioridad_pedido = peso_paquete * prioridad_del_local;
     entregado = false;
 }
+
+

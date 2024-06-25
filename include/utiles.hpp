@@ -4,6 +4,7 @@
 #include <iostream>
 #include "coordenada.hpp"
 #include <random>
+#include "constantes.hpp"
 
 enum UTILES{
     INICIA_EN_CERO = 0,
@@ -44,6 +45,12 @@ public:
     *       Cada llamada produce un resultado independiente del resto de llamadas.
     */
     static size_t generar_numero_aleatorio(size_t maximo);
+
+    /*
+     * Pre:
+     * Post:
+     */
+    static NOMBRE_LOCALES obtener_nombre_aleatorio();
 
 };
 

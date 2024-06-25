@@ -4,11 +4,9 @@
 #include <iostream>
 #include "coordenada.hpp"
 #include "utiles.hpp"
+#include "constantes.hpp"
 
-enum PESOS_PAQUETES{
-    PESO_MINIMO = 1,
-    PESO_MAXIMO = 15,
-};
+
 
 class pedido{
 private:
@@ -18,6 +16,8 @@ private:
     size_t prioridad_pedido;
     bool entregado;
 public:
+
+    pedido();
 
     /*
     * Pre:

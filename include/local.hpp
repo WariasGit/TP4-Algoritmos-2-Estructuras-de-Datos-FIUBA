@@ -20,16 +20,21 @@ private:
 public:
 
     /*
-    * Pre:
-    * Post: Constructor
+    * NOTA: Este contructor está solamente por temas de C++, (default-constructible). No tiene sentido usarlo.
     */
     local();
 
     /*
     * Pre:
+    * Post: Constructor
+    */
+    local(coordenada posicion);
+
+    /*
+    * Pre:
     * Post: Crea pedidos
     */
-    pedido generar_pedido();
+    pedido generar_pedido(coordenada posicion);
 
 };
 
