@@ -5,19 +5,19 @@
    <img src="Banner.jpg" alt="TPG: El bullicio del Callejon Aurum"><br>
 </p>
 
-## Nombre del grupo: **NOMBRE**
+## Nombre del grupo: **_Grafosaurios_**
 
-### Integrantes:
+##### Integrantes:
 
-#### APELLIDO, NOMBRE - PADRÓN
+##### - ARIAS, WALTER - 106428
 
-#### APELLIDO, NOMBRE - PADRÓN
+##### - SERRANTES, BRYAN - 110158
 
-#### APELLIDO, NOMBRE - PADRÓN
+##### - SICILIANO, FRANCO - 108157
 
-#### APELLIDO, NOMBRE - PADRÓN
+##### - WANG, RICARDO - 107235
 
-#### APELLIDO, NOMBRE - PADRÓN
+##### - ZAJIC, GISELA - 108735
 
 ### Documentos:
 
@@ -46,3 +46,9 @@ Que se pueden instalar por terminal:
 # Aclaraciones adicionales:
 
 // ACLARACIONES ADICIONALES PARA EL CORRECTOR, COMO DECISIONES O SUPUESTOS QUE CONSIDERARON //
+
+### **_Descripción de ramas:_**
+
+1. **_main:_** Rama principal del proyecto. Contiene el código final y los archivos de documentación.
+2. **_develop:_** Rama de desarrollo. Contiene el código en desarrollo unificado de los integrantes del equipo, con el juego completado con sus funcionalidades.
+3. **_feature/busqueda-a-star:_** Rama de desarrollo de la funcionalidad del algoritmo A* para el primer minijuego.

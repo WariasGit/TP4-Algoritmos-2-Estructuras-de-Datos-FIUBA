@@ -87,7 +87,5 @@ std::stack<coordenada> a_estrella::obtener_camino_minimo(coordenada origen, coor
             }
         }
     }
-
     return {};
 }
-
