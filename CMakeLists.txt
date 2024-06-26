@@ -32,7 +32,10 @@ set(ARCHIVOS_FUENTE
 
         include/personaje.hpp
         src/personaje.cpp
-
+		include/local.hpp
+		src/local.cpp
+		include/pedido.hpp
+		src/pedido.cpp
         include/utiles.hpp
         src/utiles.cpp
 	include/constantes.hpp

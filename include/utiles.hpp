@@ -50,7 +50,7 @@ public:
      * Pre:
      * Post:
      */
-    static NOMBRE_LOCALES obtener_nombre_aleatorio();
+    static std::string obtener_nombre_aleatorio();
 
 };
 

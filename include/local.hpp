@@ -6,17 +6,15 @@
 #include "coordenada.hpp"
 #include "utiles.hpp"
 #include "mapa.hpp"
+#include "constantes.hpp"
 
-enum PRIORIDAD_LOCALES {
-    PRIORIDAD_MINIMA_LOCAL = 1,
-    PRIORIDAD_MAXIMA_LOCAL = 10,
-};
 
 class local{
 private:
     std::string nombre;
     size_t prioridad;
     coordenada posicion;
+    int simbolo_local;
 public:
 
     /*
@@ -28,14 +26,31 @@ public:
     * Pre:
     * Post: Constructor
     */
-    local(coordenada posicion);
+    local(coordenada posicion_nueva);
 
     /*
     * Pre:
     * Post: Crea pedidos
     */
-    pedido generar_pedido(coordenada posicion);
+    pedido generar_pedido(coordenada posicion_local_destino);
 
+    /*
+    * Pre:
+    * Post:
+    */
+    std::string obtener_nombre();
+
+    /*
+    * Pre:
+    * Post:
+    */
+    int obtener_simbolo();
+
+    /*
+    * Pre:
+    * Post:
+    */
+    coordenada obtener_posicion();
 };
 
 

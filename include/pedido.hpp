@@ -24,6 +24,42 @@ public:
     * Post: Constructor.
     */
     pedido(coordenada inicio, coordenada destino, size_t prioridad_del_local);
+
+    /*
+    * Pre:
+    * Post:
+    */
+    coordenada obtener_posicion_inicio();
+
+    /*
+    * Pre:
+    * Post:
+    */
+    coordenada obtener_posicion_destino();
+
+    /*
+    * Pre:
+    * Post:
+    */
+    size_t obtener_prioridad_pedido();
+
+    /*
+    * Pre:
+    * Post:
+    */
+    bool esta_entregado();
+
+    /*
+    * Pre:
+    * Post:
+    */
+    void set_entregado();
+
+    /*
+    * Pre:
+    * Post:
+    */
+    pedido& operator=(const pedido& otro);
 };
 
 

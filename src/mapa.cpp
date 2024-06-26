@@ -75,17 +75,17 @@ coordenada mapa::generar_coordenada_aleatoria_valida( mapa &mapa) {
 
 
 void mapa::dibujar_mapa(sf::RenderWindow& window) {
-    sf::Color color_no_caminable = sf::Color::Black;
-    sf::Color color_caminable = sf::Color::Green;
-    sf::Color color_jugador = sf::Color::Blue;
-    sf::Color color_local = sf::Color::Red;
-    sf::Color color_camino = sf::Color::Yellow;
-    float tamanioCasillero = 20.f;
-    sf::RectangleShape casillero(sf::Vector2f(tamanioCasillero, tamanioCasillero));
+    auto color_no_caminable = sf::Color(158, 158, 158);
+    auto color_caminable = sf::Color(139, 195, 74);
+    auto color_jugador = sf::Color(33, 150, 243);
+    auto color_local = sf::Color(244, 67, 54);
+    auto color_camino = sf::Color(255, 152, 0);
+    auto color_cliente = sf::Color(255, 255,51);
+    sf::RectangleShape casillero(sf::Vector2f(TAMANIO_CASILLERO, TAMANIO_CASILLERO));
     for (size_t fila = 0; fila < FILAS; ++fila) {
         for (size_t columna = 0; columna < COLUMNAS; ++columna) {
             int& valor = matriz_mapa.elemento(fila, columna);
-            casillero.setPosition(float(columna) * tamanioCasillero, float(fila) * tamanioCasillero);
+            casillero.setPosition(float(columna) * TAMANIO_CASILLERO, float(fila) * TAMANIO_CASILLERO);
             switch (valor) {
                 case NO_CAMINABLE:
                     casillero.setFillColor(color_no_caminable);
@@ -102,10 +102,15 @@ void mapa::dibujar_mapa(sf::RenderWindow& window) {
                 case CAMINO:
                     casillero.setFillColor(color_camino);
                     break;
+                case CLIENTE:
+                    casillero.setFillColor(color_cliente);
+                    break;
                 default:
                     casillero.setFillColor(sf::Color::White);
                     break;
             }
+            casillero.setOutlineThickness(1.f);
+            casillero.setOutlineColor(sf::Color::Black);
             window.draw(casillero);
         }
     }

@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <stack>
 #include <SFML/Graphics.hpp>
 #include <optional>
 #include "coordenada.hpp"
@@ -24,20 +25,20 @@
 
 class juego {
 private:
-    int estado_del_juego;
-    int vitalidad_del_callejon;
+    size_t vitalidad_del_callejon;
     int pedidos_entregados;
     size_t monedas;
     std::vector<local> locales;
     std::vector<pedido> pedidos;
-    a_estrella caminos_minimos;
+    //a_estrella caminos_minimos;
     std::stack<coordenada> camino_minimo_actual;
+    bool mostrar_camino;
     personaje jugador;
     mapa tablero;
     sf::RenderWindow window;
+    sf::Clock reloj;
     sf::Font font;
     sf::Text menuText;
-
     /*
     * Pre:
     * Post:
@@ -45,11 +46,16 @@ private:
     void mover_jugador(DIRECCION direccion);
 
     /*
-    * Pre:
-    * Post:
+    * Pre: El jugador debe estar cerca del local de inicio.
+    * Post: El jugador toma el pedido.
     */
-    void cargar_posicion_jugador_en_mapa();
+    void tomar_pedido();
 
+    /*
+    * Pre: El jugador debe estar cerca del local de destino.
+    * Post: El jugador entrega el pedido.
+    */
+    void entregar_pedido();
 
     /*
     * Pre:
@@ -63,15 +69,59 @@ private:
     */
     void mostrar_arbol_expandido();
 
+    /*
+    * Pre:
+    * Post:
+    */
     void calcular_camino_minimo(coordenada inicio, coordenada destino);
+
+    /*
+    * Pre:
+    * Post:
+    */
     void visualizar_camino_minimo(std::stack<coordenada>& camino);
 
+    /*
+    * Pre:
+    * Post:
+    */
+    void inicializar_locales();
+
+    /*
+    * Pre:
+    * Post:
+    */
+    void generar_pedidos_iniciales();
+
+    /*
+    * Pre:
+    * Post:
+    */
+    void inicializar_clientes();
+
+    /*
+    * Pre:
+    * Post:
+    */
+    void generar_pedido_aleatorio();
+
+    /*
+    * Pre:
+    * Post:
+    */
+    int distancia_manhattan(coordenada a, coordenada b);
 
 public:
     /*
      * Constructor.
      */
     juego();
+
+    /*
+    * Pre:
+    * Post:
+    */
+    void inicializar_juego();
 
 
     /*
@@ -84,7 +134,7 @@ public:
     * Pre:
     * Post:
     */
-    void manejar_eventos_ventana();
+    void manejar_eventos_ventana(sf::Event event);
 
     /*
     * Pre:
