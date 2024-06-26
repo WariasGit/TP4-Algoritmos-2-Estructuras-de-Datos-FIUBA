@@ -50,6 +50,10 @@ public:
     // Pre: Los punteros no pueden ser nulos.
     // Post: Devuelve el resultado de ejecutar el operador == sobre los vértices desreferenciados.
     static bool igual(vertice* vertice1, vertice* vertice2);
+
+    // Pre: -
+    // Post: Devuelve la posición del vértice.
+    coordenada obtener_posicion();
 };
 
 #endif
