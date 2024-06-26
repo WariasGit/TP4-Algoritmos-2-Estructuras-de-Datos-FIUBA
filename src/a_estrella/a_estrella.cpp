@@ -33,10 +33,60 @@ void a_estrella::limpiar_sets() {
 }
 
 std::stack<coordenada> a_estrella::reconstruir_camino(vertice* destino) {
-    // TODO: Implementar.
+    std::stack<coordenada> camino;
+    vertice* vertice_actual = destino;
+
+    while (vertice_actual != nullptr) {
+        camino.push(vertice_actual->posicion);
+        vertice_actual = vertice_actual->padre;
+    }
+    return camino;
 }
 
 std::stack<coordenada> a_estrella::obtener_camino_minimo(coordenada origen, coordenada destino, mapa& mapa_callejon,
                                                          int heuristica(vertice*, vertice*)) {
-    // TODO: Implementar.
+    limpiar_sets();
+
+    vertice* inicio = new vertice(origen);
+    vertice* fin = new vertice(destino);
+
+    inicio->costo_origen = 0;
+    inicio->padre = nullptr;
+    inicio->distancia_destino = heuristica(inicio, fin);
+    set_abierto.push_back(inicio);
+
+    while (!set_abierto.empty()) {
+        vertice* vertice_actual = buscar_mejor_vertice();
+        if (*vertice_actual == destino) {
+            return reconstruir_camino(vertice_actual);
+        }
+
+        set_cerrado.push_back(vertice_actual);
+        for (auto vecino : mapa_callejon.obtener_vecinos_valido(vertice_actual->posicion)) {
+            vertice* vecino_actual = buscar_vertice(set_cerrado, vecino);
+            if (vecino_actual == nullptr) {
+                vecino_actual = buscar_vertice(set_abierto, vecino);
+                if (vecino_actual == nullptr) {
+                    vecino_actual = new vertice(vecino, vertice_actual);
+                    vecino_actual->costo_origen = vertice_actual->costo_origen + 1;
+                    vecino_actual->distancia_destino = heuristica(vecino_actual, fin);
+                    set_abierto.push_back(vecino_actual);
+                } else {
+                    int nuevo_costo = vertice_actual->costo_origen + 1;
+                    if (nuevo_costo < vecino_actual->costo_origen) {
+                        vecino_actual->costo_origen = nuevo_costo;
+                        vecino_actual->padre = vertice_actual;
+                    }
+                }
+            } else {
+                int nuevo_costo = vertice_actual->costo_origen + 1;
+                if (nuevo_costo < vecino_actual->costo_origen) {
+                    vecino_actual->costo_origen = nuevo_costo;
+                    vecino_actual->padre = vertice_actual;
+                }
+            }
+        }
+    }
+
+    return {};
 }

@@ -29,6 +29,7 @@ set(ARCHIVOS_FUENTE
         include/aem/grafo.hpp
         src/aem/arista.cpp
         include/aem/arista.hpp
+        include/heuristica.hpp
 )
 
 add_executable(AyED_TPG_1c2024
