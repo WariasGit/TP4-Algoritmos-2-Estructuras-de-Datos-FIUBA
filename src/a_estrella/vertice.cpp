@@ -34,3 +34,7 @@ bool vertice::menor(vertice* vertice1, vertice* vertice2) {
 bool vertice::igual(vertice* vertice1, vertice* vertice2) {
     return *vertice1 == *vertice2;
 }
+
+coordenada vertice::obtener_posicion() {
+    return posicion;
+}
