@@ -79,7 +79,7 @@ template <typename T, bool (*comp)(T, T)>
 size_t heap<T, comp>::contar_upheaps(size_t& indice){
     size_t upheaps = 0;
     size_t pos_padre = (indice-1)/2;
-    while (indice > 0 && datos[pos_padre] < datos[indice]){
+    while (indice > 0 &&  comp(datos[indice], datos[pos_padre])){
         swap(pos_padre, indice);
         upheaps++;
         indice = pos_padre;
@@ -94,12 +94,12 @@ size_t heap<T, comp>::contar_downheaps(size_t &indice){
     size_t pos_hijo_izq = (indice*2)+1;
     size_t pos_hijo_der = (indice*2)+2;
     size_t pos_mayor = indice;
-    while((pos_hijo_der < datos.size() && datos[pos_hijo_der] > datos[pos_mayor]) || (pos_hijo_izq < datos.size() && datos[pos_hijo_izq] > datos[pos_mayor])){
+    while((pos_hijo_der < datos.size() && comp(datos[pos_hijo_der], datos[pos_mayor])) || (pos_hijo_izq < datos.size() && comp(datos[pos_hijo_izq],datos[pos_mayor]))){
 
-        if (pos_hijo_der < datos.size() && datos[pos_hijo_der] > datos[pos_mayor]){
+        if (pos_hijo_der < datos.size() &&  comp(datos[pos_hijo_der],datos[pos_mayor])){
             pos_mayor = pos_hijo_der;
         }
-        if (pos_hijo_izq < datos.size() && datos[pos_hijo_izq] > datos[pos_mayor]){
+        if (pos_hijo_izq < datos.size() && comp(datos[pos_hijo_izq],datos[pos_mayor])){
             pos_mayor = pos_hijo_izq;
         }
 
@@ -132,7 +132,7 @@ template<typename T, bool (* comp)(T, T)>
 void heap<T, comp>::upheap(size_t& indice) {
 
     size_t pos_padre = (indice-1)/2;
-    while (indice > 0 && datos[pos_padre] < datos[indice]){
+    while (indice > 0 && comp(datos[indice],datos[pos_padre])){
         swap(pos_padre, indice);
         indice = pos_padre;
         pos_padre = (indice-1)/2;
@@ -145,12 +145,12 @@ void heap<T, comp>::downheap(size_t& indice) {
     size_t pos_hijo_izq = (indice*2)+1;
     size_t pos_hijo_der = (indice*2)+2;
     size_t pos_mayor = indice;
-    while((pos_hijo_der < datos.size() && datos[pos_hijo_der] > datos[pos_mayor]) || (pos_hijo_izq < datos.size() && datos[pos_hijo_izq] > datos[pos_mayor])){
+    while((pos_hijo_der < datos.size() && comp(datos[pos_hijo_der], datos[pos_mayor])) || (pos_hijo_izq < datos.size() && comp(datos[pos_hijo_izq],datos[pos_mayor]))){
 
-        if (pos_hijo_der < datos.size() && datos[pos_hijo_der] > datos[pos_mayor]){
+        if (pos_hijo_der < datos.size() &&  comp(datos[pos_hijo_der],datos[pos_mayor])){
             pos_mayor = pos_hijo_der;
         }
-        if (pos_hijo_izq < datos.size() && datos[pos_hijo_izq] > datos[pos_mayor]){
+        if (pos_hijo_izq < datos.size() && comp(datos[pos_hijo_izq],datos[pos_mayor])){
             pos_mayor = pos_hijo_izq;
         }
 
