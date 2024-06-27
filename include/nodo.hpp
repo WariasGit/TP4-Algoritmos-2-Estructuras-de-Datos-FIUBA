@@ -6,7 +6,7 @@ class diccionario;
 
 template<typename c, typename T, bool comp(c, c)>
 class nodo {
-private:
+public:
     c clave{};
     T dato{};
     nodo<c, T, comp>* padre;
