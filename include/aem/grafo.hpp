@@ -23,7 +23,7 @@ private:
     // Post: Actualiza los vertices adyacentes y sus pesos.   
     void actualizar_vertices(size_t vertice_maximo, const std::vector<bool>& vertices_visitados, 
                             std::vector<int>& pesos_maximos, 
-                            std::vector<int>& vertices_maximo_asociado);
+                            std::vector<size_t>& vertices_maximo_asociado);
 
     // Pre: -.
     // Post: Imprime las aristas que forma el aem por la consola.
