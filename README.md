@@ -21,8 +21,8 @@
 
 ### Documentos:
 
-1. [Informe de complejidad algorítmica](https://www.enlaceaca.com/)
-2. [Video de demostración del programa](https://www.enlaceaca.com/)
+1. [Informe de complejidad algorítmica](https://docs.google.com/document/d/1_Dic8CRacDmOSMqlIWvmwBsQT9cFlZpGu1GJta4eUcQ/edit?usp=drive_link)
+2. [Video de demostración del programa](https://drive.google.com/file/d/1CAw3r_xDD2zvo9aVyiTtaDfbxiqet_XQ/view?usp=sharing)
 
 ### Compilación
 
