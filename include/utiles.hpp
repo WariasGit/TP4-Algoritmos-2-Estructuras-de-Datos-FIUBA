@@ -5,10 +5,15 @@
 #include "coordenada.hpp"
 #include <random>
 #include "constantes.hpp"
+#include "pedido.hpp"
 
 enum UTILES{
     INICIA_EN_CERO = 0,
 };
+
+class pedido;
+
+bool comparar_pedidos(pedido primer_pedido, pedido segundo_pedido);
 
 class utiles{
 public:
@@ -51,7 +56,6 @@ public:
      * Post:
      */
     static std::string obtener_nombre_aleatorio();
-
 };
 
 

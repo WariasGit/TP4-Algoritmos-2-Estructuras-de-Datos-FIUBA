@@ -20,7 +20,7 @@ int utiles::validar_ingreso_opcion(std::string input, int minimo, int maximo){
 bool utiles::es_numerico(std::string input){
     unsigned long i = 0;
     bool es_numero = true;
-    while (es_numero && i < int(input.length()) ) {
+    while (es_numero && int(i) < int(input.length()) ) {
         if ( !(isdigit(input[i])) ) {
             es_numero = false;
         }
@@ -62,3 +62,6 @@ std::string utiles::obtener_nombre_aleatorio() {
     return NOMBRE_LOCALES[indice_aleatorio];
 }
 
+bool comparar_pedidos( pedido primer_pedido,  pedido segundo_pedido){
+    return primer_pedido.obtener_prioridad_pedido() > segundo_pedido.obtener_prioridad_pedido();
+}

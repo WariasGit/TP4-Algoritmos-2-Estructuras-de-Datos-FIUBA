@@ -16,11 +16,11 @@ juego::juego(){
     tablero = mapa(FILAS, COLUMNAS);
     jugador = personaje(tablero.generar_coordenada_aleatoria_valida());
     window.create(sf::VideoMode(800, 600), "Mi Juego");
+    window.setFramerateLimit(60);
 }
 
 void juego::inicializar_juego() {
     tablero.agregar_casillero(jugador.obtener_posicion(), jugador.obtener_simbolo());
-    inicializar_locales();
     inicializar_locales();
     inicializar_clientes();
     generar_pedidos_iniciales();
@@ -44,7 +44,15 @@ void juego::manejar_eventos_ventana(sf::Event event) {
         if (event.type == sf::Event::Closed) {
             window.close();
         } else if (event.type == sf::Event::KeyPressed) {
-            pedido pedido_actual = pedidos.front();
+            pedido pedido_actual = pedidos.primero();
+
+            std::cout << "Pedido de mayor prioridad:\n";
+            std::cout << "Prioridad: " << pedido_actual.obtener_prioridad_pedido()
+                      << ", Dirección Inicio: " << pedido_actual.obtener_posicion_inicio().x()
+                      << ", " << pedido_actual.obtener_posicion_inicio().y() << std::endl;
+            std::cout << ", Dirección Destino: " << pedido_actual.obtener_posicion_destino().x()
+                      << ", " << pedido_actual.obtener_posicion_destino().y() << std::endl;
+
             switch (event.key.code) {
                 case sf::Keyboard::Up:
                     mover_jugador(DIRECCION::ARRIBA);
@@ -59,8 +67,23 @@ void juego::manejar_eventos_ventana(sf::Event event) {
                     mover_jugador(DIRECCION::DERECHA);
                     break;
                 case sf::Keyboard::A:
-                    // Necesito el pedido de mejor prioridad
-                    calcular_camino_minimo(pedido_actual.obtener_posicion_inicio(), pedido_actual.obtener_posicion_destino());
+                    if (jugador.tiene_pedido())
+                    {
+                        std::cout << "Pedido Actual:\n";
+                        std::cout << "Prioridad: " << pedido_actual.obtener_prioridad_pedido()
+                                  << ", Dirección Inicio: " << pedido_actual.obtener_posicion_inicio().x()
+                                  << ", " << pedido_actual.obtener_posicion_inicio().y() << std::endl;
+                        std::cout << ", Dirección Destino: " << pedido_actual.obtener_posicion_destino().x()
+                                  << ", " << pedido_actual.obtener_posicion_destino().y() << std::endl;
+                        calcular_camino_minimo(pedido_actual.obtener_posicion_inicio(), pedido_actual.obtener_posicion_destino());
+                    }
+                    std::cout << "Locales:\n";
+                    for (auto& local : locales) {
+                        std::cout << "Nombre: " << local.obtener_nombre()
+                                  << ", Dirección: " << local.obtener_posicion().x()
+                                  << ", " << local.obtener_posicion().y() << std::endl;
+                    }
+
                     break;
                 case sf::Keyboard::E:
                     mostrar_camino = !mostrar_camino;
@@ -128,12 +151,12 @@ void juego::mover_jugador(DIRECCION direccion) {
 }
 
 void juego::tomar_pedido() {
-    if (!jugador.tiene_pedido() && !pedidos.empty()){
-        pedido& primer_pedido = pedidos.front();
+    if (!jugador.tiene_pedido() && !pedidos.vacio()){
+        pedido primer_pedido = pedidos.primero();
         if (distancia_manhattan(jugador.obtener_posicion(), primer_pedido.obtener_posicion_inicio()) == DISTANCIA_MANHATTAN_PEDIDO) {
             jugador.set_lleva_pedido();
             jugador.set_pedido(primer_pedido);
-            pedidos.erase(pedidos.begin());
+            pedidos.baja();
             monedas += utiles::generar_numero_aleatorio(MONEDAS_MAXIMAS_POR_PEDIDO_TOMADO);
             vitalidad_del_callejon += utiles::generar_numero_aleatorio(VITALIDAD_MINIMA);
         }
@@ -173,7 +196,7 @@ void juego::visualizar_camino_minimo(std::stack<coordenada>& camino) {
         coordenada punto = camino_copia.top();
         camino_copia.pop();
         sf::RectangleShape casillero(sf::Vector2f(TAMANIO_CASILLERO, TAMANIO_CASILLERO));
-        casillero.setPosition(float(punto.x()) * TAMANIO_CASILLERO, float(punto.y()) * TAMANIO_CASILLERO);
+        casillero.setPosition(float(punto.y()) * TAMANIO_CASILLERO, float(punto.x()) * TAMANIO_CASILLERO);
         casillero.setFillColor(colorCamino);
         window.draw(casillero);
     }
@@ -195,7 +218,7 @@ void juego::generar_pedidos_iniciales() {
         for (auto& local_destino : locales) {
             if (distancia_manhattan(local_origen.obtener_posicion(), local_destino.obtener_posicion()) != CERO) {
                 pedido pedido_nuevo = local_origen.generar_pedido(local_destino.obtener_posicion());
-                pedidos.push_back(pedido_nuevo);
+                pedidos.alta(pedido_nuevo);
             }
         }
     }
@@ -220,9 +243,10 @@ void juego::generar_pedido_aleatorio() {
     local& local_inicio = locales[indice_local_inicio];
     local& local_destino = locales[indice_local_destino];
     pedido nuevo_pedido = local_inicio.generar_pedido(local_destino.obtener_posicion());
-    pedidos.push_back(nuevo_pedido);
+    pedidos.alta(nuevo_pedido);
 }
 
 int juego::distancia_manhattan(coordenada a, coordenada b) {
     return abs(a.x() - b.x()) + abs(a.y() - b.y());
 }
+

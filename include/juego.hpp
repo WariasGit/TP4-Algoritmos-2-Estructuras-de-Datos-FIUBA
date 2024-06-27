@@ -2,8 +2,9 @@
 #define AYED_TPG_1C2024_JUEGO_HPP
 
 #include <iostream>
-#include <vector>
+
 #include <stack>
+#include <vector>
 #include <SFML/Graphics.hpp>
 #include <optional>
 #include "coordenada.hpp"
@@ -13,15 +14,12 @@
 #include "pedido.hpp"
 #include "local.hpp"
 #include "a_estrella.hpp"
+#include "arista.hpp"
+#include "grafo.hpp"
+#include "visualizador.hpp"
+#include "heap.hpp"
+//#include "diccionario.hpp"
 
-
-#ifdef __linux__
-#define LIMPIAR "clear"
-#endif // __linux__
-
-#ifdef __MINGW32__
-#define LIMPIAR "CLS"
-#endif // __MINGW32__
 
 class juego {
 private:
@@ -29,7 +27,8 @@ private:
     int pedidos_entregados;
     size_t monedas;
     std::vector<local> locales;
-    std::vector<pedido> pedidos;
+    //diccionario<local, utiles::comparar_claves> locales;
+    heap<pedido, comparar_pedidos> pedidos;
     a_estrella caminos_minimos;
     std::stack<coordenada> camino_minimo_actual;
     bool mostrar_camino;
@@ -37,8 +36,7 @@ private:
     mapa tablero;
     sf::RenderWindow window;
     sf::Clock reloj;
-    sf::Font font;
-    sf::Text menuText;
+
     /*
     * Pre:
     * Post:
@@ -138,7 +136,7 @@ public:
 
     /*
     * Pre:
-    * Post: Muesta las opciones de juego, valida las entradas y realiza las acciones correspondientes.
+    * Post: Realiza las acciones correspondientes.
     */
     void jugar();
 
