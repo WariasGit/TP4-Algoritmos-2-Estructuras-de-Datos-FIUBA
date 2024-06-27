@@ -58,8 +58,8 @@ grafo& grafo::operator=(const grafo& grafo1) {
 size_t grafo::buscar_vertice_maximo(const std::vector<bool>& vertices_visitados, 
                                 const std::vector<int>& pesos_maximos) {
     int peso_maximo = INFINITO;
-    size_t vertice_maximo = -1;
-    for (size_t i = 0; i < matriz_adyacencia.filas(); ++i) {
+    size_t vertice_maximo = 0;
+    for (size_t i = 0; i < matriz_adyacencia.filas(); i++) {
         if (!vertices_visitados[i] && pesos_maximos[i] > peso_maximo) {
             peso_maximo = pesos_maximos[i];
             vertice_maximo = i;
@@ -76,7 +76,7 @@ void grafo::actualizar_vertices(size_t vertice_maximo, const std::vector<bool>& 
 
         if (!vertices_visitados[i] && peso_actual > pesos_maximos[i]) {
             pesos_maximos[i] = peso_actual;
-            vertices_maximo_asociado[i] = vertice_maximo;
+            vertices_maximo_asociado[i] = static_cast<int>(vertice_maximo);
         }
     }
 }
@@ -97,16 +97,16 @@ void grafo::imprimir_aristas(const std::vector<arista>& aem) {
 std::vector<arista> grafo::obtener_aem() {
     std::vector<arista> aem_res;
 
-    int cantidad_vertice = matriz_adyacencia.filas();
+    int cantidad_vertice = static_cast<int>(matriz_adyacencia.filas());
     int vertice_nulo = -1;
 
     if (cantidad_vertice < 2) {
         imprimir_aristas(aem_res);
         return aem_res;
     }
-    std::vector<bool> vertices_visitados(cantidad_vertice, false);
-    std::vector<int> pesos_maximos(cantidad_vertice, INFINITO);
-    std::vector<int> vertices_maximo_asociado(cantidad_vertice, vertice_nulo);
+    std::vector<bool> vertices_visitados(static_cast<unsigned long>(cantidad_vertice), false);
+    std::vector<int> pesos_maximos(static_cast<unsigned long>(cantidad_vertice), INFINITO);
+    std::vector<int> vertices_maximo_asociado(static_cast<unsigned long>(cantidad_vertice), vertice_nulo);
 
     pesos_maximos[0] = 0;
     vertices_maximo_asociado[0] = 0;
