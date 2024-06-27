@@ -19,12 +19,14 @@ set(ARCHIVOS_FUENTE
         include/matriz.hpp
         src/a_estrella/vertice.cpp
         include/a_estrella/vertice.hpp
-
+        src/a_estrella/a_estrella.cpp
+        include/a_estrella/a_estrella.hpp
         src/a_estrella/coordenada.cpp
         include/a_estrella/coordenada.hpp
         src/mapa.cpp
         include/mapa.hpp
-
+        src/aem/grafo.cpp
+        include/aem/grafo.hpp
         src/aem/arista.cpp
         include/aem/arista.hpp
         include/juego.hpp
@@ -32,13 +34,14 @@ set(ARCHIVOS_FUENTE
 
         include/personaje.hpp
         src/personaje.cpp
-		include/local.hpp
-		src/local.cpp
-		include/pedido.hpp
-		src/pedido.cpp
+        include/local.hpp
+        src/local.cpp
+        include/pedido.hpp
+        src/pedido.cpp
         include/utiles.hpp
         src/utiles.cpp
-	include/constantes.hpp
+        include/constantes.hpp
+        include/heuristica.hpp
 )
 
 add_executable(AyED_TPG_1c2024
@@ -57,3 +60,10 @@ find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
 # Enlazar con las bibliotecas de SFML
 target_link_libraries(AyED_TPG_1c2024 sfml-graphics sfml-window sfml-system)
 
+add_subdirectory(tests/diccionario)
+add_subdirectory(tests/heap)
+add_subdirectory(tests/grafo)
+
+target_sources(diccionario_test PRIVATE ${ARCHIVOS_FUENTE})
+target_sources(heap_test PRIVATE ${ARCHIVOS_FUENTE})
+target_sources(grafo_test PRIVATE ${ARCHIVOS_FUENTE})

@@ -117,6 +117,26 @@ void mapa::dibujar_mapa(sf::RenderWindow& window) {
 }
 
 
+std::list<coordenada> mapa::obtener_vecinos_valido(coordenada posicion) {
+    std::list<coordenada> vecinos;
+
+    for (auto vecino : obtener_vecinos(posicion)) {
+        if (es_vecino_valido(vecino)) {
+            vecinos.push_back(vecino);
+        }
+    }
+
+    return vecinos;
+}
+
+std::list<coordenada> mapa::obtener_vecinos(coordenada posicion) {
+    std::list<coordenada> vecinos;
+    vecinos.emplace_back(posicion.x() - 1, posicion.y());
+    vecinos.emplace_back(posicion.x() + 1, posicion.y());
+    vecinos.emplace_back(posicion.x(), posicion.y() - 1);
+    vecinos.emplace_back(posicion.x(), posicion.y() + 1);
+    return vecinos;
+}
 
 
 
