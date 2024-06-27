@@ -51,14 +51,17 @@ add_executable(AyED_TPG_1c2024
 
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "main")
 
-# Encontrar y configurar SFML
-set(SFML_DIR "/usr/lib/x86_64-linux-gnu/cmake/SFML" CACHE PATH "Directorio donde se encuentran los módulos de SFML")
+include(FetchContent)
+FetchContent_Declare(
+        googletest
+        GIT_REPOSITORY https://github.com/google/googletest.git
+        GIT_TAG e4fdb87e76b9fc4b01c54ad81aea19d6e994b994
+)
 
-# Busca y configura SFML
-find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
 
-# Enlazar con las bibliotecas de SFML
-target_link_libraries(AyED_TPG_1c2024 sfml-graphics sfml-window sfml-system)
+include_directories(${gmock_SOURCE_DIR}/include ${gmock_SOURCE_DIR})
 
 add_subdirectory(tests/diccionario)
 add_subdirectory(tests/heap)

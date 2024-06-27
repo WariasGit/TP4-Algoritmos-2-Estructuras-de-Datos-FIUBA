@@ -2,9 +2,8 @@
 #define AYED_TPG_1C2024_JUEGO_HPP
 
 #include <iostream>
-
-#include <stack>
 #include <vector>
+#include <stack>
 #include <SFML/Graphics.hpp>
 #include <optional>
 #include "coordenada.hpp"

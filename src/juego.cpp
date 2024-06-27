@@ -249,4 +249,3 @@ void juego::generar_pedido_aleatorio() {
 int juego::distancia_manhattan(coordenada a, coordenada b) {
     return abs(a.x() - b.x()) + abs(a.y() - b.y());
 }
-
