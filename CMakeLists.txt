@@ -4,7 +4,7 @@ project(AyED_TPG_1c2024)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "../")
 
-add_compile_options(-Wall -Werror -Wconversion)
+add_compile_options(-Wall -Werror -Wconversion -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lsfml-network)
 
 include_directories(include)
 include_directories(include/a_estrella)
