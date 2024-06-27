@@ -43,12 +43,12 @@ Que se pueden instalar por terminal:
 
 > sudo apt-get install // PROGRAMA //
 
-# Aclaraciones adicionales:
-
-// ACLARACIONES ADICIONALES PARA EL CORRECTOR, COMO DECISIONES O SUPUESTOS QUE CONSIDERARON //
-
 ### **_Descripción de ramas:_**
 
 1. **_main:_** Rama principal del proyecto. Contiene el código final y los archivos de documentación.
 2. **_develop:_** Rama de desarrollo. Contiene el código en desarrollo unificado de los integrantes del equipo, con el juego completado con sus funcionalidades.
 3. **_feature/busqueda-a-star:_** Rama de desarrollo de la funcionalidad del algoritmo A* para el primer minijuego.
+4. **_feature/heap:_** Rama de desarrollo del heap de máximos, útil para establecer la prioridad con la que se van a entregar los pedidos en el juego.
+5. **_feature/arbol_generador:_** Rama de la implementación de generar el árbol expansión máximo  y de la clase visualizar, que consiste en mostrar el resultado del método obtener_aem(), para el segundo minijuego.
+6. **_feature/diciconario:_** Rama en la cual se desarrolla la estructura de datos diccionario con el proposito de almacenar los datos pertinentes y asi poder acceder a estos mediante una clave.
+7. **_feature/Clase_juego: _** Encapsula la lógica del manejo general del juego y la jugabilidad.Gestiona eventos de usuario, actualiza estados y renderiza elementos gráficos en la ventana de SFML.
