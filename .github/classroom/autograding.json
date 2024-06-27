@@ -2,7 +2,7 @@
   "tests": [
     {
       "name": "Pruebas Diccionario",
-      "setup": "./build.sh",
+      "setup": " sudo apt-get install libsfml-dev && ./build.sh" ,
       "run": "./test_diccionario.sh",
       "input": null,
       "output": null,
@@ -12,7 +12,7 @@
     },
     {
       "name": "Pruebas Heap",
-      "setup": "./build.sh",
+      "setup": "sudo apt-get install libsfml-dev && ./build.sh ",
       "run": "./test_heap.sh",
       "input": null,
       "output": null,
@@ -22,7 +22,7 @@
     },
     {
       "name": "Pruebas Grafo",
-      "setup": "./build.sh",
+      "setup": "sudo apt-get install libsfml-dev && ./build.sh",
       "run": "./test_grafo.sh",
       "input": null,
       "output": null,
@@ -32,7 +32,7 @@
     },
     {
       "name": "Chequeo de Memoria",
-      "setup": "sudo apt-get update && sudo apt-get install -y valgrind && ./build.sh",
+      "setup": "sudo apt-get install libsfml-dev && sudo apt-get update && sudo apt-get install -y valgrind && ./build.sh",
       "run": "./valgrind.sh",
       "input": null,
       "output": null,
