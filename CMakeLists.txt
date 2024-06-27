@@ -57,7 +57,7 @@ set(SFML_DIR /usr/local/Cellar/sfml/2.5.1_2/lib/cmake/SFML)  # Ajusta esto si es
 find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
 
 # Enlazar con las bibliotecas de SFML
-target_link_libraries(${PROJECT_NAME} sfml-system sfml-window sfml-graphics sfml-audio sfml-network)
+target_link_libraries(${PROJECT_NAME} lsfml-system lsfml-window lsfml-graphics lsfml-audio lsfml-network)
 
 include(FetchContent)
 FetchContent_Declare(
