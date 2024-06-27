@@ -29,6 +29,18 @@ set(ARCHIVOS_FUENTE
         include/aem/grafo.hpp
         src/aem/arista.cpp
         include/aem/arista.hpp
+        include/juego.hpp
+        src/juego.cpp
+
+        include/personaje.hpp
+        src/personaje.cpp
+        include/local.hpp
+        src/local.cpp
+        include/pedido.hpp
+        src/pedido.cpp
+        include/utiles.hpp
+        src/utiles.cpp
+        include/constantes.hpp
         include/heuristica.hpp
 )
 
@@ -38,6 +50,14 @@ add_executable(AyED_TPG_1c2024
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "main")
+#set(SFML_DIR /opt/homebrew/Cellar/sfml/2.6.1/lib/cmake/SFML)  # Ajusta esto si es necesario
+set(SFML_DIR /usr/local/Cellar/sfml/2.5.1_2/lib/cmake/SFML)  # Ajusta esto si es necesario
+
+# Busca y configura SFML
+find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
+
+# Enlazar con las bibliotecas de SFML
+target_link_libraries(${PROJECT_NAME} sfml-system sfml-window sfml-graphics sfml-audio sfml-network)
 
 include(FetchContent)
 FetchContent_Declare(

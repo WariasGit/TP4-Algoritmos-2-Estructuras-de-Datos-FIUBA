@@ -62,7 +62,8 @@ std::stack<coordenada> a_estrella::obtener_camino_minimo(coordenada origen, coor
         }
 
         set_cerrado.push_back(vertice_actual);
-        for (auto vecino : mapa_callejon.obtener_vecinos_valido(vertice_actual->posicion)) {
+        std::list<coordenada> vecinos = mapa_callejon.obtener_vecinos(vertice_actual->posicion);
+        for (auto vecino : vecinos) {
             vertice* vecino_actual = buscar_vertice(set_cerrado, vecino);
             if (vecino_actual == nullptr) {
                 vecino_actual = buscar_vertice(set_abierto, vecino);
@@ -89,3 +90,4 @@ std::stack<coordenada> a_estrella::obtener_camino_minimo(coordenada origen, coor
     }
 
     return {};
+}
