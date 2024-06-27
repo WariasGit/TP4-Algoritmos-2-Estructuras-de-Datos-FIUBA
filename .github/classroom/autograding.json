@@ -13,7 +13,7 @@
     {
       "name": "Pruebas Heap",
       "setup": "./build.sh",
-      "run": "./test_heap",
+      "run": "./test_heap.sh",
       "input": null,
       "output": null,
       "comparison": "exact",
@@ -23,7 +23,7 @@
     {
       "name": "Pruebas Grafo",
       "setup": "./build.sh",
-      "run": "./test_grafo",
+      "run": "./test_grafo.sh",
       "input": null,
       "output": null,
       "comparison": "exact",

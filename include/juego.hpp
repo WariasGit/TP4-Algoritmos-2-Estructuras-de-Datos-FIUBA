@@ -30,7 +30,7 @@ private:
     size_t monedas;
     std::vector<local> locales;
     std::vector<pedido> pedidos;
-    //a_estrella caminos_minimos;
+    a_estrella caminos_minimos;
     std::stack<coordenada> camino_minimo_actual;
     bool mostrar_camino;
     personaje jugador;

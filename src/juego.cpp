@@ -1,12 +1,13 @@
 #include "juego.hpp"
 #include "utiles.hpp"
+#include "heuristica.hpp"
 
 
 juego::juego(){
     vitalidad_del_callejon = CERO;
     pedidos_entregados = CERO;
     monedas = utiles::generar_numero_aleatorio(static_cast<size_t>(MONEDAS_MINIMAS_INICIO), static_cast<size_t>(MONEDAS_MAXIMAS_INICIO));
-    //caminos_minimos = a_estrella();
+    caminos_minimos = a_estrella();
     camino_minimo_actual.emplace(7,0);
     camino_minimo_actual.emplace(6,0);
     camino_minimo_actual.emplace(5,0);
@@ -43,6 +44,7 @@ void juego::manejar_eventos_ventana(sf::Event event) {
         if (event.type == sf::Event::Closed) {
             window.close();
         } else if (event.type == sf::Event::KeyPressed) {
+            pedido pedido_actual = pedidos.front();
             switch (event.key.code) {
                 case sf::Keyboard::Up:
                     mover_jugador(DIRECCION::ARRIBA);
@@ -58,7 +60,7 @@ void juego::manejar_eventos_ventana(sf::Event event) {
                     break;
                 case sf::Keyboard::A:
                     // Necesito el pedido de mejor prioridad
-                    //calcular_camino_minimo(coordenada inicio, coordenada final);
+                    calcular_camino_minimo(pedido_actual.obtener_posicion_inicio(), pedido_actual.obtener_posicion_destino());
                     break;
                 case sf::Keyboard::E:
                     mostrar_camino = !mostrar_camino;
@@ -160,7 +162,8 @@ void juego::mostrar_arbol_expandido(){
 }
 
 void juego::calcular_camino_minimo(coordenada local_inicio, coordenada local_destino) {
-    //camino_minimo_actual = caminos_minimos.obtener_camino_minimo(local_inicio, local_destino, tablero);
+    camino_minimo_actual = caminos_minimos.obtener_camino_minimo(local_inicio, local_destino, tablero,
+                                                                 distancia_manhattan_vertice);
 }
 
 void juego::visualizar_camino_minimo(std::stack<coordenada>& camino) {

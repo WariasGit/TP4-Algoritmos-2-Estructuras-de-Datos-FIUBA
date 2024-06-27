@@ -36,7 +36,8 @@ TEST_F(heap_test, baja) {
 }
 
 TEST_F(heap_test, baja_maneja_heap_vacio) {
-    EXPECT_THROW(heap1.baja(), heap_exception);
+    heap<int, mayor> heap2;
+    EXPECT_THROW(heap2.baja(), heap_exception);
 }
 
 TEST_F(heap_test, primero) {
@@ -44,7 +45,8 @@ TEST_F(heap_test, primero) {
 }
 
 TEST_F(heap_test, primero_maneja_heap_vacio) {
-    EXPECT_THROW(heap1.primero(), heap_exception);
+    heap<int, mayor> heap2;
+    EXPECT_THROW(heap2.primero(), heap_exception);
 }
 
 TEST_F(heap_test, vacio) {

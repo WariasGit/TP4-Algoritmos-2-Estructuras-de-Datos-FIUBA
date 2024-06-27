@@ -46,3 +46,9 @@ Que se pueden instalar por terminal:
 # Aclaraciones adicionales:
 
 // ACLARACIONES ADICIONALES PARA EL CORRECTOR, COMO DECISIONES O SUPUESTOS QUE CONSIDERARON //
+
+### **_Descripción de ramas:_**
+
+1. **_main:_** Rama principal del proyecto. Contiene el código final y los archivos de documentación.
+2. **_develop:_** Rama de desarrollo. Contiene el código en desarrollo unificado de los integrantes del equipo, con el juego completado con sus funcionalidades.
+3. **_feature/busqueda-a-star:_** Rama de desarrollo de la funcionalidad del algoritmo A* para el primer minijuego.

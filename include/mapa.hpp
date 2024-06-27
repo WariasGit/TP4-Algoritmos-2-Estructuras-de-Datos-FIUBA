@@ -7,6 +7,7 @@
 #include <iostream>
 #include <fstream>
 #include "utiles.hpp"
+#include <list>
 #include "coordenada.hpp"
 #include "constantes.hpp"
 #include "matriz.hpp"
@@ -55,7 +56,7 @@ public:
     void agregar_casillero(coordenada posicion, int valor);
 
     /*
-    * Pre: 
+    * Pre:
     * Post: Devuelve una coordenada valida.
     */
     coordenada generar_coordenada_aleatoria_valida();
@@ -71,6 +72,14 @@ public:
     * Post:
     */
     void dibujar_mapa(sf::RenderWindow& window);
+
+    // Pre: -
+    // Post: Devuelve una lista con los vecinos válidos, es decir, caminables.
+    std::list<coordenada> obtener_vecinos_valido(coordenada posicion);
+
+    // Pre: -
+    // Post: Devuelve una lista con todos los vecinos.
+    std::list<coordenada> obtener_vecinos(coordenada posicion);
 };
 
 #endif
