@@ -4,7 +4,7 @@ project(AyED_TPG_1c2024)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "../")
 
-add_compile_options(-Wall -Werror -Wconversion)
+add_compile_options(-Wall -Werror -Wconversion -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lsfml-network)
 
 include_directories(include)
 include_directories(include/a_estrella)
@@ -29,6 +29,19 @@ set(ARCHIVOS_FUENTE
         include/aem/grafo.hpp
         src/aem/arista.cpp
         include/aem/arista.hpp
+        include/juego.hpp
+        src/juego.cpp
+
+        include/personaje.hpp
+        src/personaje.cpp
+        include/local.hpp
+        src/local.cpp
+        include/pedido.hpp
+        src/pedido.cpp
+        include/utiles.hpp
+        src/utiles.cpp
+        include/constantes.hpp
+        include/heuristica.hpp
 )
 
 add_executable(AyED_TPG_1c2024
@@ -37,6 +50,14 @@ add_executable(AyED_TPG_1c2024
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "main")
+#set(SFML_DIR /opt/homebrew/Cellar/sfml/2.6.1/lib/cmake/SFML)  # Ajusta esto si es necesario
+set(SFML_DIR /usr/lib/x86_64-linux-gnu/cmake/SFML)  # Ajusta esto si es necesario
+
+# Busca y configura SFML
+find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
+
+# Enlazar con las bibliotecas de SFML
+target_link_libraries(${PROJECT_NAME} sfml-system sfml-window sfml-graphics sfml-audio sfml-network)
 
 include(FetchContent)
 FetchContent_Declare(
