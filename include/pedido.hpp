@@ -16,7 +16,10 @@ private:
     size_t prioridad_pedido;
     bool entregado;
 public:
-
+    /*
+    * Pre:
+    * Post: Constructor.
+    */
     pedido();
 
     /*

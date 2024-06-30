@@ -19,8 +19,6 @@
  * Adicionalmente, la pueden utilizar para otras partes del TP.
  * TIP: Tienen una matriz ya implementada como parte de la plantilla del TP. */
 
-
-
 class mapa {
 private:
     matriz<int > matriz_mapa;
@@ -41,7 +39,7 @@ public:
 
     // Pre:
     // Post: Procesa el archivo y carga en la matriz las entradas correspondientes al callejon.
-    void cargar_callejon(std::string path_archivo);
+    void cargar_callejon(const std::string& path_archivo);
 
     /*
     * Pre:

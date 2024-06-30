@@ -4,22 +4,37 @@ project(AyED_TPG_1c2024)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "../")
 
-add_compile_options(-Wall -Werror -Wconversion)
+# Opciones del compilador
+add_compile_options(-Wall -Werror -Wconversion -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lsfml-network)
 
+# Directorios de inclusión
 include_directories(include)
 include_directories(include/a_estrella)
 include_directories(include/aem)
 
-# Si crean otros archivos .cpp, los tienen que agregar acá de la forma:
-#   directorio/archivo.cpp
+# Configurar SFML
+set(SFML_DIR "/usr/lib/x86_64-linux-gnu/cmake/SFML")
+find_package(SFML 2.5 COMPONENTS graphics window system audio REQUIRED)
+
+if(SFML_FOUND)
+  include_directories(${SFML_INCLUDE_DIR})
+else()
+  message(FATAL_ERROR "Could not find SFML library")
+endif()
+
+# Archivos fuente
 set(ARCHIVOS_FUENTE
         src/a_estrella/vertice.cpp
         src/a_estrella/a_estrella.cpp
         src/a_estrella/coordenada.cpp
         src/mapa.cpp
         src/aem/grafo.cpp
+        include/aem/grafo.hpp
+        include/aem/visualizador.hpp
+        src/aem/visualizador.cpp
         src/aem/arista.cpp
         src/juego.cpp
+        include/personaje.hpp
         src/personaje.cpp
         src/local.cpp
         src/pedido.cpp
@@ -28,7 +43,6 @@ set(ARCHIVOS_FUENTE
 )
 
 include(FetchContent)
-
 FetchContent_Declare(
         SFML
         GIT_REPOSITORY https://github.com/SFML/SFML.git

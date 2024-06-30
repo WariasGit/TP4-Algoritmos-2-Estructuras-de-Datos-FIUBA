@@ -10,6 +10,7 @@ personaje::personaje(coordenada posicion){
     this->posicion = posicion;
     simbolo_jugador = static_cast<size_t>(JUGADOR);
     lleva_un_pedido = false;
+    pedido_actual = pedido();
 }
 
 coordenada personaje::obtener_posicion(){

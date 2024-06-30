@@ -2,21 +2,50 @@
 #define AYED_TPG_1C2024_CONSTANTES_HPP
 #include <SFML/Graphics.hpp>
 
-/*CLASE JUEGO*/
+/*CLASE UI*/
+#define FUENTE_TITULO_FILE "MULTIMEDIA/FUENTES/Kaushan_Script/KaushanScript-Regular.ttf"
+#define FUENTE_TEXTO_FILE "MULTIMEDIA/FUENTES/Permanent_Marker/PermanentMarker-Regular.ttf"
+
+#define MENSAJE_PEDIDO "Tienes que entregar tu pedido actual."
+#define TITULO_JUEGO "El bullicio Del Callejon Aurum."
+
+
+/*CLASE MENU*/
+#define TITULO_MENU "Menu Principal."
+#define OPCION_JUGAR "Para jugar; presione: 1"
+#define OPCION_CREDITOS "Para ver los creditos, presione: 2"
+#define OPCION_SALIR "Para salir, presione: 3"
+
+#define CREDITOS_FILE "MULTIMEDIA/TEXTOS/Creditos.txt"
+#define SINOPSIS_FILE "MULTIMEDIA/TEXTOS/Sinopsis.txt"
+
+
+/*CLASE SONIDO*/
+#define SONIDO_ALARMA_PATH "MULTIMEDIA/SONIDOS/Alarma_victoria.aif"
+#define SONIDO_CAMINO_PATH "MULTIMEDIA/SONIDOS/Camino.aif"
+#define SONIDO_MONEDAS_PATH "MULTIMEDIA/SONIDOS/Monedas.aif"
+#define SONIDO_MUSICA_PATH "MULTIMEDIA/SONIDOS/Musica_loop.mp3"
+#define SONIDO_PEDIDO_PATH "MULTIMEDIA/SONIDOS/Pedido.aif"
+#define SONIDO_FINAL_PATH "MULTIMEDIA/SONIDOS/Sonido_final.wav"
+#define SONIDO_INICIO_PATH "MULTIMEDIA/SONIDOS/Sonido_inicio.wav"
+
 enum OPCIONES_MENU_PRINCIPAL{
-    INICIO = 0,
     JUGAR = 1,
     CREDITOS = 2,
-    SALIR_MENU_PRINCIPAL = 3,
+    SALIR_JUEGO = 3,
 };
+
+/*CLASE JUEGO*/
 
 enum CARACTERISTICAS_JUEGO {
     CLIENTES_MINIMOS = 1,
     CLIENTES_MAXIMOS = 4,
     LOCALES_MINIMOS = 2,
     LOCALES_MAXIMOS = 6,
+    PEDIDOS_MAXIMOS_JUUEGO = 10,
     CERO = 0,
     UN_INDICE = 1,
+    UN_PEDIDO = 1,
     FILAS = 18,
     COLUMNAS = 24,
     DISTANCIA_MANHATTAN_PEDIDO = 1,
@@ -43,7 +72,8 @@ enum class DIRECCION {
 };
 
 const float TAMANIO_CASILLERO = 20.f;
-
+#define ARCHIVO_AEM_DOT "arbol_expancion_maxima.dot"
+#define ARCHIVO_AEM_PNG "arbol_expancion_maxima.png"
 
 /*CLASE MAPA*/
 enum REPRESENTACIONES_MAPA{
@@ -93,7 +123,7 @@ enum PESOS_PAQUETES{
 
 const sf::Time TIEMPO_ENTRE_PEDIDOS = sf::seconds(15.f);
 
-#define PATH_ARCHIVO_CALLEJON "callejon.csv"
+const std::string PATH_ARCHIVO_CALLEJON = "callejon.csv";
 
 
 #endif

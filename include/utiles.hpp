@@ -5,10 +5,17 @@
 #include "coordenada.hpp"
 #include <random>
 #include "constantes.hpp"
+#include "pedido.hpp"
 
 enum UTILES{
     INICIA_EN_CERO = 0,
 };
+
+class pedido;
+
+bool comparar_pedidos(pedido primer_pedido, pedido segundo_pedido);
+
+bool comparar_nombres(std::string nombre1, std::string nombre2);
 
 class utiles{
 public:
@@ -52,6 +59,11 @@ public:
      */
     static std::string obtener_nombre_aleatorio();
 
+    /*
+     * Pre:
+     * Post:
+     */
+    static void convertir_dot_a_jpg(const std::string& path_dot, const std::string& path_png);
 };
 
 

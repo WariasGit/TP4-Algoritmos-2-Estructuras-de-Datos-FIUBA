@@ -21,7 +21,7 @@ bool mapa::es_vecino_valido(coordenada posicion) {
     return false;
 }
 
-void mapa::cargar_callejon(std::string path_archivo){
+void mapa::cargar_callejon(const std::string& path_archivo){
     std::ifstream archivo(path_archivo);
     std::string linea;
     char delimitador = ',';

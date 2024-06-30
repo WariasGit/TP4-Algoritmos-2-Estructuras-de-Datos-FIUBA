@@ -18,7 +18,7 @@ pedido local::generar_pedido(coordenada posicion_local_destino){
     return pedido(posicion, posicion_otro_local, prioridad);
 }
 
-std::string local::obtener_nombre() {
+const std::string local::obtener_nombre() {
     return nombre;
 }
 

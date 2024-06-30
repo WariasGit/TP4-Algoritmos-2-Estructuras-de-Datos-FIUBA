@@ -20,7 +20,12 @@ void grafo::agregar_vertice() {
 void grafo::modificar_arista(size_t origen, size_t destino, int peso) {
     size_t vertices = matriz_adyacencia.columnas();
     if (origen < vertices && destino < vertices) {
-        matriz_adyacencia.elemento(origen, destino) = peso;
+        int peso_actual = matriz_adyacencia.elemento(origen, destino);
+        if (peso_actual == INFINITO) {
+            matriz_adyacencia.elemento(origen, destino) = peso;
+        } else {
+            matriz_adyacencia.elemento(origen, destino) += peso;
+        }
     } else {
         std::cout << "ERROR: Los vértices no son válidos. No se cambió el camino." << std::endl;
     }
@@ -99,7 +104,6 @@ std::vector<arista> grafo::obtener_aem() {
 
     int cantidad_vertice = static_cast<int>(matriz_adyacencia.filas());
     size_t vertice_nulo = 0;
-
     if (cantidad_vertice < 2) {
         imprimir_aristas(aem_res);
         return aem_res;
