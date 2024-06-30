@@ -5,22 +5,12 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "../")
 
 # Opciones del compilador
-add_compile_options(-Wall -Werror -Wconversion -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lsfml-network)
+add_compile_options(-Wall -Werror -Wconversion)
 
 # Directorios de inclusión
 include_directories(include)
 include_directories(include/a_estrella)
 include_directories(include/aem)
-
-# Configurar SFML
-set(SFML_DIR "/usr/lib/x86_64-linux-gnu/cmake/SFML")
-find_package(SFML 2.5 COMPONENTS graphics window system audio REQUIRED)
-
-if(SFML_FOUND)
-  include_directories(${SFML_INCLUDE_DIR})
-else()
-  message(FATAL_ERROR "Could not find SFML library")
-endif()
 
 # Archivos fuente
 set(ARCHIVOS_FUENTE
