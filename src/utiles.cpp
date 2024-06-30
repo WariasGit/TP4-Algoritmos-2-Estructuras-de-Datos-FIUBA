@@ -18,9 +18,9 @@ int utiles::validar_ingreso_opcion(std::string input, int minimo, int maximo){
 }
 
 bool utiles::es_numerico(std::string input){
-    unsigned long i = 0;
+    size_t i = 0;
     bool es_numero = true;
-    while (es_numero && int(i) < int(input.length()) ) {
+    while (es_numero && i < size_t(input.length()) ) {
         if ( !(isdigit(input[i])) ) {
             es_numero = false;
         }

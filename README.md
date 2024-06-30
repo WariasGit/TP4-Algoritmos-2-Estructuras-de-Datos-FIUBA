@@ -21,14 +21,15 @@
 
 ### Documentos:
 
-1. [Informe de complejidad algorítmica](https://www.enlaceaca.com/)
-2. [Video de demostración del programa](https://www.enlaceaca.com/)
+1. [Informe de complejidad algorítmica](https://docs.google.com/document/d/1_Dic8CRacDmOSMqlIWvmwBsQT9cFlZpGu1GJta4eUcQ/edit?usp=drive_link)
+2. [Video de demostración del programa](https://drive.google.com/file/d/1CAw3r_xDD2zvo9aVyiTtaDfbxiqet_XQ/view?usp=sharing)
 
 ### Compilación
 
 El proyecto se puede compilar manualmente por terminal con la siguiente línea:
 
-> // COMPLETAR CON LINEA DE COMPILACIÓN //
+> g++ -I./include src/*.cpp -I./include/aem src/aem/*.cpp  -I./include/a_estrella src/a_estrella/*.cpp  main.cpp -std=c++23 -Wall -Werror -Wconversion -lsfml-graphics -lsfml-window -lsfml-system -o main
+
 
 O, alternativamente, con CMake, utilizando el archivo **CMakeLists.txt** presente en el directorio raíz.
 
