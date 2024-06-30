@@ -42,8 +42,10 @@ enum CARACTERISTICAS_JUEGO {
     CLIENTES_MAXIMOS = 4,
     LOCALES_MINIMOS = 2,
     LOCALES_MAXIMOS = 6,
+    PEDIDOS_MAXIMOS_JUUEGO = 10,
     CERO = 0,
     UN_INDICE = 1,
+    UN_PEDIDO = 1,
     FILAS = 18,
     COLUMNAS = 24,
     DISTANCIA_MANHATTAN_PEDIDO = 1,
@@ -70,7 +72,8 @@ enum class DIRECCION {
 };
 
 const float TAMANIO_CASILLERO = 20.f;
-
+#define ARCHIVO_AEM_DOT "arbol_expancion_maxima.dot"
+#define ARCHIVO_AEM_PNG "arbol_expancion_maxima.png"
 
 /*CLASE MAPA*/
 enum REPRESENTACIONES_MAPA{
@@ -120,7 +123,7 @@ enum PESOS_PAQUETES{
 
 const sf::Time TIEMPO_ENTRE_PEDIDOS = sf::seconds(15.f);
 
-#define PATH_ARCHIVO_CALLEJON "callejon.csv"
+const std::string PATH_ARCHIVO_CALLEJON = "callejon.csv";
 
 
 #endif

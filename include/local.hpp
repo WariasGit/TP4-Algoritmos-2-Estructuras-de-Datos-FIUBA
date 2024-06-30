@@ -38,7 +38,7 @@ public:
     * Pre:
     * Post:
     */
-    std::string obtener_nombre();
+    const std::string obtener_nombre();
 
     /*
     * Pre:

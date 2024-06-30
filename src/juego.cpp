@@ -6,13 +6,11 @@
 juego::juego(){
     vitalidad_del_callejon = CERO;
     pedidos_entregados = CERO;
+    pedidos_totales = CERO;
     monedas = utiles::generar_numero_aleatorio(static_cast<size_t>(MONEDAS_MINIMAS_INICIO), static_cast<size_t>(MONEDAS_MAXIMAS_INICIO));
     caminos_minimos = a_estrella();
-    camino_minimo_actual.emplace(7,0);
-    camino_minimo_actual.emplace(6,0);
-    camino_minimo_actual.emplace(5,0);
-    camino_minimo_actual.emplace(4,0);
     mostrar_camino = false;
+    mostrar_aem = false;
     tablero = mapa(FILAS, COLUMNAS);
     jugador = personaje(tablero.generar_coordenada_aleatoria_valida());
     window.create(sf::VideoMode(800, 600), "Mi Juego");
@@ -32,10 +30,10 @@ void juego::actualizar_juego() {
     }else{
         sf::Time tiempo_transcurrido;
         tiempo_transcurrido = reloj.getElapsedTime();
-        if (tiempo_transcurrido >= TIEMPO_ENTRE_PEDIDOS) {
+        if (tiempo_transcurrido >= TIEMPO_ENTRE_PEDIDOS && pedidos_totales< PEDIDOS_MAXIMOS_JUUEGO) {
             generar_pedido_aleatorio();
             reloj.restart();
-            vitalidad_del_callejon += VITALIDAD_MINIMA;
+            //vitalidad_del_callejon += VITALIDAD_MINIMA;
         }
     }
 }
@@ -45,13 +43,33 @@ void juego::manejar_eventos_ventana(sf::Event event) {
             window.close();
         } else if (event.type == sf::Event::KeyPressed) {
             pedido pedido_actual = pedidos.primero();
-
+            std::vector<local> vector_locales = locales.inorder();
+            std::cout << "Cantidad de pedidos entregados: " << pedidos_entregados << std::endl;
+            std::cout << "Cantidad de pedidos totaltes del juego: " << pedidos_totales << std::endl;
             std::cout << "Pedido de mayor prioridad:\n";
-            std::cout << "Prioridad: " << pedido_actual.obtener_prioridad_pedido()
-                      << ", Dirección Inicio: " << pedido_actual.obtener_posicion_inicio().x()
+            std::cout << "Prioridad: " << pedido_actual.obtener_prioridad_pedido() << std::endl;
+            std::cout << ", Dirección Inicio: " << pedido_actual.obtener_posicion_inicio().x()
                       << ", " << pedido_actual.obtener_posicion_inicio().y() << std::endl;
             std::cout << ", Dirección Destino: " << pedido_actual.obtener_posicion_destino().x()
                       << ", " << pedido_actual.obtener_posicion_destino().y() << std::endl;
+            std::cout << std::endl;
+            std::cout << "Locales:\n";
+            for (auto& local : vector_locales) {
+                std::cout << "Nombre: " << local.obtener_nombre()
+                          << ", Dirección: " << local.obtener_posicion().x()
+                          << ", " << local.obtener_posicion().y() << std::endl;
+            }
+
+            if (jugador.tiene_pedido()){
+                std::cout << std::endl;
+                std::cout << "Pedido Actual:\n";
+                std::cout << "Prioridad: " << pedido_actual.obtener_prioridad_pedido()
+                          << ", Dirección Inicio: " << pedido_actual.obtener_posicion_inicio().x()
+                          << ", " << pedido_actual.obtener_posicion_inicio().y() << std::endl;
+                std::cout << ", Dirección Destino: " << pedido_actual.obtener_posicion_destino().x()
+                          << ", " << pedido_actual.obtener_posicion_destino().y() << std::endl;
+            }
+
 
             switch (event.key.code) {
                 case sf::Keyboard::Up:
@@ -67,32 +85,23 @@ void juego::manejar_eventos_ventana(sf::Event event) {
                     mover_jugador(DIRECCION::DERECHA);
                     break;
                 case sf::Keyboard::A:
-                    if (jugador.tiene_pedido())
-                    {
-                        std::cout << "Pedido Actual:\n";
-                        std::cout << "Prioridad: " << pedido_actual.obtener_prioridad_pedido()
-                                  << ", Dirección Inicio: " << pedido_actual.obtener_posicion_inicio().x()
-                                  << ", " << pedido_actual.obtener_posicion_inicio().y() << std::endl;
-                        std::cout << ", Dirección Destino: " << pedido_actual.obtener_posicion_destino().x()
-                                  << ", " << pedido_actual.obtener_posicion_destino().y() << std::endl;
-                        calcular_camino_minimo(pedido_actual.obtener_posicion_inicio(), pedido_actual.obtener_posicion_destino());
+                    std::cout << "A" << std::endl;
+                    if (jugador.tiene_pedido()){
+                        calcular_camino_minimo(jugador.obtener_pedido().obtener_posicion_inicio(), jugador.obtener_pedido().obtener_posicion_destino());
+                    }else{
+                        std::cout << "No tomo pedido" << std::endl;
                     }
-                    std::cout << "Locales:\n";
-                    for (auto& local : locales) {
-                        std::cout << "Nombre: " << local.obtener_nombre()
-                                  << ", Dirección: " << local.obtener_posicion().x()
-                                  << ", " << local.obtener_posicion().y() << std::endl;
-                    }
-
                     break;
                 case sf::Keyboard::E:
                     mostrar_camino = !mostrar_camino;
                     std::cout << "E" << std::endl;
                     break;
                 case sf::Keyboard::D:
-                    //mostrar_arbol_expandido();
+                    generar_arbol_expandido();
+                    mostrar_aem = !mostrar_aem;
                     break;
                 case sf::Keyboard::Q:
+                    std::cout << "Q" << std::endl;
                     tomar_pedido();
                     entregar_pedido();
                     break;
@@ -118,6 +127,9 @@ void juego::jugar(){
             mostrar_mapa();
             if (mostrar_camino) {
                 visualizar_camino_minimo(camino_minimo_actual);
+            }
+            if (mostrar_aem){
+                mostrar_arbol_expandido();
             }
             window.display();
         }
@@ -156,9 +168,11 @@ void juego::tomar_pedido() {
         if (distancia_manhattan(jugador.obtener_posicion(), primer_pedido.obtener_posicion_inicio()) == DISTANCIA_MANHATTAN_PEDIDO) {
             jugador.set_lleva_pedido();
             jugador.set_pedido(primer_pedido);
-            pedidos.baja();
             monedas += utiles::generar_numero_aleatorio(MONEDAS_MAXIMAS_POR_PEDIDO_TOMADO);
             vitalidad_del_callejon += utiles::generar_numero_aleatorio(VITALIDAD_MINIMA);
+        }else{
+            std::cout << "Intentando tomar pedido..." << std::endl;
+            std::cout << "Estas lejos" << std::endl;
         }
     }
 }
@@ -168,9 +182,15 @@ void juego::entregar_pedido() {
         pedido pedido_actual = jugador.obtener_pedido();
         if (distancia_manhattan(jugador.obtener_posicion(),pedido_actual.obtener_posicion_destino()) == DISTANCIA_MANHATTAN_PEDIDO){
             jugador.set_lleva_pedido();
+            pedidos.baja();
             monedas += utiles::generar_numero_aleatorio(MONEDAS_MINIMAS_POR_PEDIDO_ENTREGADO, MONEDAS_MAXIMAS_POR_PEDIDO_ENTREGADO);
             pedidos_entregados ++;
             vitalidad_del_callejon += utiles::generar_numero_aleatorio(VITALIDAD_MINIMA,VITALIDAD_MAXIMA);
+            std::stack<coordenada> empty_stack;
+            camino_minimo_actual.swap(empty_stack);
+        } else{
+            std::cout << "Intentando entregar pedido..." << std::endl;
+            std::cout << "Estas lejos" << std::endl;
         }
     }
 }
@@ -180,8 +200,24 @@ void juego::mostrar_mapa(){
     tablero.dibujar_mapa(window);
 }
 
+void juego::generar_arbol_expandido(){
+    visualizador visualizador_arbol(grafo_locales);
+    visualizador_arbol.visualizar_aem(ARCHIVO_AEM_DOT);
+    utiles::convertir_dot_a_jpg(ARCHIVO_AEM_DOT, ARCHIVO_AEM_PNG);
+
+}
+
 void juego::mostrar_arbol_expandido(){
-    //minijuego secundario
+    sf::Texture textura;
+    if (!textura.loadFromFile(ARCHIVO_AEM_PNG)) {
+        std::cerr << "Error al cargar la imagen " << ARCHIVO_AEM_PNG << std::endl;
+        return;
+    }
+    sf::Sprite sprite;
+    sprite.setTexture(textura);
+    sprite.setPosition(80.f, 380.f);
+    //sprite.setScale(2.f, 2.f);
+    window.draw(sprite);
 }
 
 void juego::calcular_camino_minimo(coordenada local_inicio, coordenada local_destino) {
@@ -204,21 +240,38 @@ void juego::visualizar_camino_minimo(std::stack<coordenada>& camino) {
 }
 
 void juego::inicializar_locales() {
-    size_t cantidad = utiles::generar_numero_aleatorio(LOCALES_MINIMOS, LOCALES_MAXIMOS);
-    for(size_t i = 0; i < cantidad; i++){
+    size_t cantidad_locales = utiles::generar_numero_aleatorio(LOCALES_MINIMOS, LOCALES_MAXIMOS);
+    for(size_t i = 0; i < cantidad_locales; i++){
         coordenada posicion_nueva = tablero.generar_coordenada_aleatoria_valida();
         local nuevo_local = local(posicion_nueva);
-        locales.push_back(nuevo_local);
-        tablero.agregar_casillero(nuevo_local.obtener_posicion(), nuevo_local.obtener_simbolo());
+        bool local_agregado = false;
+
+        while (!local_agregado) {
+            try {
+                locales.alta(nuevo_local.obtener_nombre(), nuevo_local);
+                tablero.agregar_casillero(nuevo_local.obtener_posicion(), nuevo_local.obtener_simbolo());
+                local_agregado = true;
+            } catch (const diccionario_exception& error_nombre_repetido) {
+                nuevo_local = local(posicion_nueva);
+            }
+        }
     }
+    //Asigno un grafo con la cantidad de locales correspondientes.
+    grafo_locales = grafo(cantidad_locales);
 }
 
 void juego::generar_pedidos_iniciales() {
-    for (auto& local_origen : locales) {
-        for (auto& local_destino : locales) {
+    std::vector<local> vector_locales = locales.inorder();
+    for (size_t i = CERO; i < vector_locales.size(); ++i) {
+        for (size_t j = i + UN_INDICE; j < vector_locales.size(); ++j) {
+            auto& local_origen = vector_locales[i];
+            auto& local_destino = vector_locales[j];
             if (distancia_manhattan(local_origen.obtener_posicion(), local_destino.obtener_posicion()) != CERO) {
                 pedido pedido_nuevo = local_origen.generar_pedido(local_destino.obtener_posicion());
                 pedidos.alta(pedido_nuevo);
+                pedidos_totales ++;
+                //Modifico la arista que une al local de inicio con el local de destino.
+                grafo_locales.modificar_arista(i, j, UN_PEDIDO);
             }
         }
     }
@@ -236,14 +289,18 @@ void juego::generar_pedido_aleatorio() {
     size_t indice_local_inicio;
     size_t indice_local_destino;
     do {
-        indice_local_inicio = utiles::generar_numero_aleatorio(locales.size() -1);
-        indice_local_destino = utiles::generar_numero_aleatorio(locales.size() -1);
+        indice_local_inicio = utiles::generar_numero_aleatorio(locales.tamanio() - UN_INDICE);
+        indice_local_destino = utiles::generar_numero_aleatorio(locales.tamanio() - UN_INDICE);
     }
     while (indice_local_destino == indice_local_inicio);
-    local& local_inicio = locales[indice_local_inicio];
-    local& local_destino = locales[indice_local_destino];
+    std::vector<local> vector_locales = locales.inorder();
+    local& local_inicio = vector_locales[indice_local_inicio];
+    local& local_destino = vector_locales[indice_local_destino];
     pedido nuevo_pedido = local_inicio.generar_pedido(local_destino.obtener_posicion());
     pedidos.alta(nuevo_pedido);
+    pedidos_totales ++;
+    //Modifico la arista que une al local de inicio con el local de destino.
+    grafo_locales.modificar_arista(indice_local_inicio, indice_local_destino, UN_PEDIDO);
 }
 
 int juego::distancia_manhattan(coordenada a, coordenada b) {

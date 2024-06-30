@@ -39,7 +39,7 @@ public:
 
     // Pre:
     // Post: Procesa el archivo y carga en la matriz las entradas correspondientes al callejon.
-    void cargar_callejon(std::string path_archivo);
+    void cargar_callejon(const std::string& path_archivo);
 
     /*
     * Pre:

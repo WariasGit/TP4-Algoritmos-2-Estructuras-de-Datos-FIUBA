@@ -65,3 +65,18 @@ std::string utiles::obtener_nombre_aleatorio() {
 bool comparar_pedidos( pedido primer_pedido,  pedido segundo_pedido){
     return primer_pedido.obtener_prioridad_pedido() > segundo_pedido.obtener_prioridad_pedido();
 }
+
+bool comparar_nombres(std::string nombre1, std::string nombre2) {
+    return nombre1 < nombre2;
+}
+
+void utiles::convertir_dot_a_jpg(const std::string& path_dot, const std::string& path_png) {
+    // Uso la libreria Graphviz
+    std::string command = "dot -Tjpg " + path_dot + " -o " + path_png;
+    int result = std::system(command.c_str());
+    if (result == 0) {
+        std::cout << "El archivo .dot ha sido convertido a .png exitosamente y guardado en '" << path_png << "'." << std::endl;
+    } else {
+        std::cerr << "Error al convertir el archivo .dot a .jpg." << std::endl;
+    }
+}
