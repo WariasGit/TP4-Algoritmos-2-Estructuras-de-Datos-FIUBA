@@ -8,10 +8,7 @@ juego::juego(){
     pedidos_entregados = CERO;
     monedas = utiles::generar_numero_aleatorio(static_cast<size_t>(MONEDAS_MINIMAS_INICIO), static_cast<size_t>(MONEDAS_MAXIMAS_INICIO));
     caminos_minimos = a_estrella();
-    camino_minimo_actual.emplace(7,0);
-    camino_minimo_actual.emplace(6,0);
-    camino_minimo_actual.emplace(5,0);
-    camino_minimo_actual.emplace(4,0);
+
     mostrar_camino = false;
     tablero = mapa(FILAS, COLUMNAS);
     jugador = personaje(tablero.generar_coordenada_aleatoria_valida());
@@ -173,7 +170,7 @@ void juego::visualizar_camino_minimo(std::stack<coordenada>& camino) {
         coordenada punto = camino_copia.top();
         camino_copia.pop();
         sf::RectangleShape casillero(sf::Vector2f(TAMANIO_CASILLERO, TAMANIO_CASILLERO));
-        casillero.setPosition(float(punto.x()) * TAMANIO_CASILLERO, float(punto.y()) * TAMANIO_CASILLERO);
+        casillero.setPosition(float(punto.y()) * TAMANIO_CASILLERO, float(punto.x()) * TAMANIO_CASILLERO);
         casillero.setFillColor(colorCamino);
         window.draw(casillero);
     }

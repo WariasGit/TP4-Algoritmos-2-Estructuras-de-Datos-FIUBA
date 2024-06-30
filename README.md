@@ -28,7 +28,8 @@
 
 El proyecto se puede compilar manualmente por terminal con la siguiente línea:
 
-> // COMPLETAR CON LINEA DE COMPILACIÓN //
+> g++ -I./include src/*.cpp -I./include/aem src/aem/*.cpp  -I./include/a_estrella src/a_estrella/*.cpp  main.cpp -std=c++23 -Wall -Werror -Wconversion -lsfml-graphics -lsfml-window -lsfml-system -o main
+
 
 O, alternativamente, con CMake, utilizando el archivo **CMakeLists.txt** presente en el directorio raíz.
 
