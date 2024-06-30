@@ -3,8 +3,6 @@
 
 #include "coordenada.hpp"
 
-class a_estrella;
-
 class vertice {
 private:
     coordenada posicion;

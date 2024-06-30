@@ -76,7 +76,7 @@ void grafo::actualizar_vertices(size_t vertice_maximo, const std::vector<bool>& 
 
         if (!vertices_visitados[i] && peso_actual > pesos_maximos[i]) {
             pesos_maximos[i] = peso_actual;
-            vertices_maximo_asociado[i] = static_cast<int>(vertice_maximo);
+            vertices_maximo_asociado[i] = static_cast<unsigned long>(vertice_maximo);
         }
     }
 }
@@ -98,7 +98,7 @@ std::vector<arista> grafo::obtener_aem() {
     std::vector<arista> aem_res;
 
     int cantidad_vertice = static_cast<int>(matriz_adyacencia.filas());
-    size_t vertice_nulo = -1;
+    size_t vertice_nulo = 0;
 
     if (cantidad_vertice < 2) {
         imprimir_aristas(aem_res);
