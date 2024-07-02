@@ -30,25 +30,25 @@ public:
 
     /*
     * Pre:
-    * Post: Crea pedidos
+    * Post: Devuelve un objeto `pedido` que tiene como posición de inicio la posición del local actual y como posición de destino `posicion_local_destino`.
     */
     pedido generar_pedido(coordenada posicion_local_destino);
 
     /*
     * Pre:
-    * Post:
+    * Post: Devuelve el nombre del local como un std::string.
     */
     const std::string obtener_nombre();
 
     /*
     * Pre:
-    * Post:
+    * Post: Devuelve el símbolo del local como un entero.
     */
     int obtener_simbolo();
 
     /*
     * Pre:
-    * Post:
+    * Post: Devuelve la posición del local como una instancia de `coordenada`.
     */
     coordenada obtener_posicion();
 };
