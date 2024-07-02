@@ -12,9 +12,16 @@ enum UTILES{
 };
 
 class pedido;
-
+    /*
+    * Pre: Los objetos `primer_pedido` y `segundo_pedido` deben ser válidos y estar correctamente inicializados.
+    * Post: Devuelve `true` si la prioridad del `primer_pedido` es mayor que la del `segundo_pedido`.
+    */
 bool comparar_pedidos(pedido primer_pedido, pedido segundo_pedido);
 
+    /*
+    * Pre:
+    * Post: Devuelve `true` si `nombre1` es menor que `nombre2` al compararlos lexicográficamente (alfabeticamente).
+    */
 bool comparar_nombres(std::string nombre1, std::string nombre2);
 
 class utiles{
@@ -54,14 +61,16 @@ public:
     static size_t generar_numero_aleatorio(size_t maximo);
 
     /*
-     * Pre:
-     * Post:
+     * Pre: La lista `NOMBRE_LOCALES` debe contener al menos un nombre.
+     * Post: Devuelve un nombre aleatorio de la lista `NOMBRE_LOCALES`.
      */
     static std::string obtener_nombre_aleatorio();
 
     /*
-     * Pre:
-     * Post:
+     * Pre: `path_dot` debe ser una ruta válida a un archivo .dot existente.
+     *       `path_png` debe ser una ruta válida donde se guardará el archivo .jpg resultante.
+     * Post: Se ejecuta un comando para convertir el archivo .dot a .jpg.
+     *        Se imprime un mensaje de exito o error, segun corresponda.
      */
     static void convertir_dot_a_jpg(const std::string& path_dot, const std::string& path_png);
 };
