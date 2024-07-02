@@ -1,0 +1,23 @@
+Instrucciones para probar el juego:
+
+1. Inicio del Juego:
+	- Al iniciar el juego, verás la ventana del juego con el mapa y los elementos propios del juego (personaje, locales y obstáculos).
+
+2. Movimiento del Jugador:
+	- Utiliza las teclas de dirección (Up, Down, Left, Right) para mover al jugador en el mapa.
+	- El jugador puede moverse entre diferentes posiciones en el mapa, pero siempre dentro del callejón.
+
+3. Interacción con Pedidos:
+	- Para tomar o entregar un pedido presiona 'Q'. Debes estar cerca del local de inicio o destino según corresponda.
+
+4. Visualización de Caminos y Árboles:
+	- Presiona la tecla 'A' para calcular el camino mínimo para poder entregar el pedido actual. Debes tomar un pedido antes.
+	- Presiona la tecla 'E' para alternar la visualización del camino mínimo calculado. Solo se visualiza si calculas el camino mínimo primero.
+	- Presiona la tecla 'D' para mostrar u ocultar la visualización de un árbol expandido (AEM).
+
+5. Cerrar el Juego:
+    - Presiona la tecla 'X' para cerrar la ventana del juego.
+
+6. Información Adicional:
+	- Durante el juego, se imprimen en la consola detalles como la cantidad de pedidos entregados, información sobre los pedidos actuales y detalles de los locales en el mapa.
+	- Tuvimos algunos problemas para integrar las clases que manejaban la interfaz de usuario en la ventana de SFML.
