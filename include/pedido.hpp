@@ -30,37 +30,37 @@ public:
 
     /*
     * Pre:
-    * Post:
+    * Post: Devuelve la coordenada de inicio del pedido es la posicion de un local valido del juego.
     */
     coordenada obtener_posicion_inicio();
 
     /*
     * Pre:
-    * Post:
+    * Post: Devuelve la coordenada de destino del pedido, es la posicion de un local valido del juego.
     */
     coordenada obtener_posicion_destino();
 
     /*
     * Pre:
-    * Post:
+    * Post: Devuelve la prioridad del pedido.
     */
     size_t obtener_prioridad_pedido();
 
     /*
     * Pre:
-    * Post:
+    * Post: Devuelve true si el pedido está entregado, false en caso contrario.
     */
     bool esta_entregado();
 
     /*
     * Pre:
-    * Post:
+    * Post:  Cambia el estado de entrega del pedido, estado de entrega del pedido se invierte.
     */
     void set_entregado();
 
     /*
     * Pre:
-    * Post:
+    * Post: Operador de asignación.
     */
     pedido& operator=(const pedido& otro);
 };
