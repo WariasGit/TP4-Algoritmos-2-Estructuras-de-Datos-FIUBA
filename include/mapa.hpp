@@ -48,8 +48,8 @@ public:
     void agregar_casilleros_caminables(int fila, int columna);
 
     /*
-    * Pre:
-    * Post:
+    * Pre: La coordenada `posicion` debe ser válida dentro de los límites del mapa.
+    * Post: El valor del casillero en la posición `posicion` del mapa se actualiza al valor ingresado.
     */
     void agregar_casillero(coordenada posicion, int valor);
 
@@ -66,8 +66,8 @@ public:
     static coordenada generar_coordenada_aleatoria_valida(mapa& mapa);
 
     /*
-    * Pre:
-    * Post:
+    * Pre: La ventana `window` debe estar creada y abierta.
+    * Post: Se dibuja una representación visual del mapa en la ventana, con casilleros coloreados según su tipo.
     */
     void dibujar_mapa(sf::RenderWindow& window);
 
