@@ -28,44 +28,44 @@ public:
 
     /*
     * Pre:
-    * Post:
+    * Post: Devuelve la posicion del jugador.
     */
     coordenada obtener_posicion();
 
     /*
     * Pre:
-    * Post:
+    * Post: Devuelve el simbolo que representa al jugador en el mapa.
     */
     int obtener_simbolo();
 
     /*
     * Pre:
-    * Post:
+    * Post: Devuelve el pedido actual del jugador.
     */
     pedido obtener_pedido();
 
     /*
     * Pre:
-    * Post:
+    * Post: Devuelve true si el jugador tomo un pedido para entregar.
     */
     bool tiene_pedido();
 
     /*
     * Pre:
-    * Post:
+    * Post: Modifica el valor de `lleva_un_pedido`, el cual alternará entre true y false.
     */
     void set_lleva_pedido();
 
     /*
-    * Pre:
-    * Post:
+    * Pre: El objeto `pedido_nuevo` debe ser un objeto válido de tipo `pedido`.
+    * Post: El atributo `pedido_actual` del objeto `personaje` se establece con el valor del objeto `pedido_nuevo`.
     */
     void set_pedido(pedido pedico_nuevo);
 
 
     /*
-    * Pre:
-    * Post:
+    * Pre: El objeto posicicon_nueva debe ser un objeto de tipo coordenada valido.
+    * Post: Actualiza la posicion del personaje a posicion_nueva.
     */
     void set_posicion(coordenada posicion_nueva);
 
