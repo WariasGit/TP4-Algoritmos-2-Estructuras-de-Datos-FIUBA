@@ -16,4 +16,8 @@ jobs:
     if: github.actor != 'github-classroom[bot]'
     steps:
       - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake g++ libboost-all-dev libfreetype6-dev libxrandr-dev libxcursor-dev libxi-dev libx11-dev
       - uses: education/autograding@v1
