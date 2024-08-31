@@ -5,30 +5,31 @@
    <img src="Banner.jpg" alt="TPG: El bullicio del Callejon Aurum"><br>
 </p>
 
-## Nombre del grupo: **NOMBRE**
+## Nombre del grupo: **_Grafosaurios_**
 
-### Integrantes:
+##### Integrantes:
 
-#### APELLIDO, NOMBRE - PADRÓN
+##### - ARIAS, WALTER - 106428
 
-#### APELLIDO, NOMBRE - PADRÓN
+##### - SERRANTES, BRYAN - 110158
 
-#### APELLIDO, NOMBRE - PADRÓN
+##### - SICILIANO, FRANCO - 108157
 
-#### APELLIDO, NOMBRE - PADRÓN
+##### - WANG, RICARDO - 107235
 
-#### APELLIDO, NOMBRE - PADRÓN
+##### - ZAJIC, GISELA - 108735
 
 ### Documentos:
 
-1. [Informe de complejidad algorítmica](https://www.enlaceaca.com/)
-2. [Video de demostración del programa](https://www.enlaceaca.com/)
+1. [Informe de complejidad algorítmica](https://docs.google.com/document/d/1_Dic8CRacDmOSMqlIWvmwBsQT9cFlZpGu1GJta4eUcQ/edit?usp=drive_link)
+2. [Video de demostración del programa](https://drive.google.com/file/d/1CAw3r_xDD2zvo9aVyiTtaDfbxiqet_XQ/view?usp=sharing)
 
 ### Compilación
 
 El proyecto se puede compilar manualmente por terminal con la siguiente línea:
 
-> // COMPLETAR CON LINEA DE COMPILACIÓN //
+> g++ -I./include src/*.cpp -I./include/aem src/aem/*.cpp  -I./include/a_estrella src/a_estrella/*.cpp  main.cpp -std=c++23 -Wall -Werror -Wconversion -lsfml-graphics -lsfml-window -lsfml-system -o main
+
 
 O, alternativamente, con CMake, utilizando el archivo **CMakeLists.txt** presente en el directorio raíz.
 
@@ -43,6 +44,12 @@ Que se pueden instalar por terminal:
 
 > sudo apt-get install // PROGRAMA //
 
-# Aclaraciones adicionales:
+### **_Descripción de ramas:_**
 
-// ACLARACIONES ADICIONALES PARA EL CORRECTOR, COMO DECISIONES O SUPUESTOS QUE CONSIDERARON //
+1. **_main:_** Rama principal del proyecto. Contiene el código final y los archivos de documentación.
+2. **_develop:_** Rama de desarrollo. Contiene el código en desarrollo unificado de los integrantes del equipo, con el juego completado con sus funcionalidades.
+3. **_feature/busqueda-a-star:_** Rama de desarrollo de la funcionalidad del algoritmo A* para el primer minijuego.
+4. **_feature/heap:_** Rama de desarrollo del heap de máximos, útil para establecer la prioridad con la que se van a entregar los pedidos en el juego.
+5. **_feature/arbol_generador:_** Rama de la implementación de generar el árbol expansión máximo  y de la clase visualizar, que consiste en mostrar el resultado del método obtener_aem(), para el segundo minijuego.
+6. **_feature/diciconario:_** Rama en la cual se desarrolla la estructura de datos diccionario con el proposito de almacenar los datos pertinentes y asi poder acceder a estos mediante una clave.
+7. **_feature/Clase_juego: _** Encapsula la lógica del manejo general del juego y la jugabilidad.Gestiona eventos de usuario, actualiza estados y renderiza elementos gráficos en la ventana de SFML.
